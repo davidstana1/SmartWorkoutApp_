@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartWorkoutApp", "SmartWorkoutApp.csproj", "{F5C7D92B-39C8-4119-926A-1E3A38CF480E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{54289F66-3741-413A-B4F1-07459CEFA14C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5C7D92B-39C8-4119-926A-1E3A38CF480E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C7D92B-39C8-4119-926A-1E3A38CF480E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C7D92B-39C8-4119-926A-1E3A38CF480E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C7D92B-39C8-4119-926A-1E3A38CF480E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54289F66-3741-413A-B4F1-07459CEFA14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54289F66-3741-413A-B4F1-07459CEFA14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54289F66-3741-413A-B4F1-07459CEFA14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54289F66-3741-413A-B4F1-07459CEFA14C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
