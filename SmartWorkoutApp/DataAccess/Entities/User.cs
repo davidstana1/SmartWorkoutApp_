@@ -1,8 +1,9 @@
-﻿namespace DataAccess.Entities;
+﻿using DataAccess.Entities.BaseEntity;
 
-public class User
+namespace DataAccess.Entities;
+
+public class User : Entity
 {
-    public string Id { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
     public string? Phone { get; set; }

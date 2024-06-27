@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
-using DataAccess.Configuration;
 using DataAccess.Entities;
+using DataAccess.Entities.BaseEntity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
@@ -14,12 +14,7 @@ public class AppDbContext : DbContext
         
     public DbSet<User> Users { get; set; }
     public DbSet<Workout> Workouts { get; set; } 
+    public DbSet<Exercise> Exercises { get; set; }
+    public DbSet<ExerciseLog> ExerciseLogs { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-
-        new UserConfiguration().Configure(modelBuilder.Entity<User>());
-        new WorkoutConfiguration().Configure(modelBuilder.Entity<Workout>());
-    }
 }
