@@ -1,0 +1,48 @@
+﻿@page "/Exercises"
+@using DataAccess.Entities
+@using DataAccess.Repository
+@using DataAccess.Repository.Exercises
+@using DataAccess.Repository.Workout
+<h3>Exercises</h3>
+
+@if (workouts == null || exercises == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    @foreach (var workout in workouts)
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>@workout.User.Surname's workout</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
+            {
+                <tr>
+                    <td>@exercise.Name</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+    private List<Exercise> exercises;
+    private List<Workout> workouts;
+
+    [Inject] IGenericRepository<Exercise> _exerciseRepository { get; set; }
+    [Inject] IGenericRepository<Workout> _workoutRepository { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        workouts = await _workoutRepository.GetAllWithInclude(u=>u.User);
+        exercises = await _exerciseRepository.GetAll(); 
+    }
+}

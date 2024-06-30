@@ -11,7 +11,12 @@ public class AppDbContext : DbContext
     {
         
     }
+
+    public AppDbContext()
+    {
         
+    }
+
     public DbSet<User> Users { get; set; }
     public DbSet<Workout> Workouts { get; set; } 
     public DbSet<Exercise> Exercises { get; set; }

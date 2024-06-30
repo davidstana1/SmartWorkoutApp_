@@ -1537,6 +1537,21 @@
             "rid": "win"
           }
         }
+      },
+      "DataAccess/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.6",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4"
+        },
+        "compile": {
+          "bin/placeholder/DataAccess.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DataAccess.dll": {}
+        }
       }
     }
   },
@@ -4169,10 +4184,16 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "DataAccess/1.0.0": {
+      "type": "project",
+      "path": "DataAccess/DataAccess.csproj",
+      "msbuildProject": "DataAccess/DataAccess.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "DataAccess >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 8.0.6",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.6",
@@ -4206,7 +4227,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\DataAccess\\DataAccess.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

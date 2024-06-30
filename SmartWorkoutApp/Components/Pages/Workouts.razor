@@ -1,0 +1,48 @@
+﻿@page "/counter"
+@using DataAccess.Entities
+@using DataAccess.Repository
+@using DataAccess.Repository.Workout
+@rendermode InteractiveServer
+
+<PageTitle>Workouts</PageTitle>
+
+<h1>Workouts</h1>
+
+@if (workouts == null)
+{
+<p>
+    <em>Loading...</em>
+</p>
+}
+else
+{
+<table class="table">
+    <thead>
+    <tr>
+        <th>User</th>
+        <th>Duration</th>
+        <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var workout in workouts)
+    {
+    <tr>
+        <td>@workout.User.Name @workout.User.Surname</td>
+        <td>@workout.Duration</td>
+        <td>@workout.Date</td>
+    </tr>
+    }
+    </tbody>
+</table>
+}
+
+@code {
+    private List<Workout> workouts;
+    [Inject] private IGenericRepository<Workout> _workoutRepository { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        workouts = await _workoutRepository.GetAllWithInclude(u =>u.User);
+    }
+}

@@ -1,4 +1,9 @@
 using DataAccess;
+using DataAccess.Entities;
+using DataAccess.Repository;
+using DataAccess.Repository.Exercises;
+using DataAccess.Repository.Users;
+using DataAccess.Repository.Workout;
 using Microsoft.EntityFrameworkCore;
 using SmartWorkoutApp.Components;
 
@@ -13,7 +18,7 @@ var services = builder.Services;
 
 services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("ConnectionString")));
-
+services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

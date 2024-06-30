@@ -125,16 +125,20 @@ namespace SmartWorkoutApp.Migrations
 
             modelBuilder.Entity("DataAccess.Entities.BaseEntity.ExerciseLog", b =>
                 {
-                    b.HasOne("DataAccess.Entities.Exercise", null)
+                    b.HasOne("DataAccess.Entities.Exercise", "Exercise")
                         .WithMany("ExerciseLogs")
                         .HasForeignKey("ExerciseId");
+
+                    b.Navigation("Exercise");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Exercise", b =>
                 {
-                    b.HasOne("DataAccess.Entities.Workout", null)
+                    b.HasOne("DataAccess.Entities.Workout", "Workout")
                         .WithMany("Exercises")
                         .HasForeignKey("WorkoutId");
+
+                    b.Navigation("Workout");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Workout", b =>

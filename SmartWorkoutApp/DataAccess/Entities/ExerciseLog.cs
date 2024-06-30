@@ -7,4 +7,5 @@ public class ExerciseLog : Entity
     public int? Reps { get; set; }
     public double? Duration { get; set; }
     public double? Distance { get; set; }
+    public Exercise Exercise { get; set; }
 }
