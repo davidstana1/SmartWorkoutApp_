@@ -6,10 +6,12 @@ namespace DataAccess.Repository;
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     protected readonly AppDbContext _appDbContext;
+    private readonly DbSet<T> _dbSet;
 
     public GenericRepository(AppDbContext appDbContext)
     {
         _appDbContext = appDbContext;
+        _dbSet = _appDbContext.Set<T>(); 
     }
 
     public async Task<List<T>> GetAll()
@@ -27,5 +29,18 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
 
         return await query.ToListAsync();
+    }
+
+    public async Task<T> Add(T entity)
+    {
+        await _dbSet.AddAsync(entity);
+        await _appDbContext.SaveChangesAsync();
+        return entity;
+    }
+
+    public async Task Delete(T entity)
+    {
+        _dbSet.Remove(entity);
+        await _appDbContext.SaveChangesAsync();
     }
 }

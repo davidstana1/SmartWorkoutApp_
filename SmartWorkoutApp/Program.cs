@@ -19,6 +19,7 @@ var services = builder.Services;
 services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("ConnectionString")));
 services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+services.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

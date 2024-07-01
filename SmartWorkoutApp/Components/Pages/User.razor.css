@@ -1,0 +1,64 @@
+﻿.addButton {
+    border: none;
+    color: white;
+    background-color:green;
+    padding: 15px 32px;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-color: green;
+    margin-top: 10px;
+}
+
+.addButton:hover{
+    background-color : limegreen;
+    color:white;
+}
+
+.submitButton{
+    border: none;
+    color: white;
+    background-color:darkslateblue;
+    padding: 15px 32px;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-color: darkslateblue;
+    margin-top: 10px;
+}
+
+.submitButton:hover
+{
+    background-color: slateblue;
+    color:white;
+}
+
+.deleteButton {
+    padding: 8px 12px; 
+    font-size: 14px;
+    background-color: transparent; 
+    border: 1px solid red;
+    border-radius: 5px; 
+    color: red; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.deleteButton:hover {
+    background-color: red;
+    color: white; 
+}
+
+.input{
+    width: 200px;
+    height: 30px;
+    padding: 12px 20px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 2px solid darkslateblue;
+    border-radius: 100px;
+}

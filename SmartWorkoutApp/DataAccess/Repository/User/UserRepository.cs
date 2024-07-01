@@ -15,5 +15,9 @@ public class UserRepository : GenericRepository<User> , IUserRepository
     {
         return await GetAll();
     }
-    
+
+    public async Task<User> AddUser(User user)
+    {
+        return await Add(user);
+    }
 }

@@ -142,3 +142,5 @@ C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\ref\SmartWorkoutApp.dll
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.0\DataAccess.dll
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.0\DataAccess.pdb
+C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\scopedcss\Components\Pages\User.razor.rz.scp.css
+C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\SmartWorkoutApp.MvcApplicationPartsAssemblyInfo.cs

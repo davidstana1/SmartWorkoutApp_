@@ -1,9 +1,9 @@
-@page "/weather"
+@page "/Users"
 @using DataAccess
 @using DataAccess.Entities
 @using DataAccess.Repository
 @using DataAccess.Repository.Users
-@attribute [StreamRendering]
+@rendermode InteractiveServer
 
 <PageTitle>Users</PageTitle>
 
@@ -11,44 +11,101 @@
 
 @if (users == null)
 {   
-<p>
-    <em>Loading...</em>
-</p>
+    <p>
+        <em>Loading...</em>
+    </p>
 }
 else
 {
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Age</th>
-        <th>Phone</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var user in users)
-    {
-    <tr>
-        <td>@user.Name</td>
-        <td>@user.Surname</td>
-        <td>@user.Email</td>
-        <td>@user.Age</td>
-        <td>@user.Phone</td>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in users)
+        {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.Email</td>
+                <td>@user.Age</td>
+                <td>@user.Phone</td>
+                <td>
+                    <button class="deleteButton" @onclick="() => Delete(user)">Delete</button>
+                </td>
+            </tr>
+            
+        }
+        </tbody>
+    </table>
 
-    </tr>
-    }
-    </tbody>
-</table>
+    <button @onclick="ToggleAddForm" class="addButton">Add User</button>
+    
+    @if (showAddForm)
+    {
+        <form method="post" @onsubmit="Submit" @formname="addUser">
+            <AntiforgeryToken />
+
+            <div>
+                <label>Name:</label>
+                <input class="input" @bind=newUser.Name />
+            </div>
+            <div>
+                <label>Surname:</label>
+                <input class="input" @bind=newUser.Surname />
+            </div>
+            <div>
+                <label>Email:</label>
+                <input class="input" @bind=newUser.Email />
+            </div>
+            <div>
+                <label>Age:</label>
+                <input class="input" @bind=newUser.Age />
+            </div>
+            <div>
+                <label>Phone:</label>
+                <input class="input" @bind=newUser.Phone />
+            </div>
+            <button type="submit" class="submitButton">Submit</button>
+        </form>
+    }   
+
 }
 
 @code {
-private List<DataAccess.Entities.User> users;
-[Inject] private IGenericRepository<DataAccess.Entities.User> _userRepository { get; set; }
+    private List<DataAccess.Entities.User> users;
+    private DataAccess.Entities.User newUser = new DataAccess.Entities.User();
+    private bool showAddForm = false;
 
-protected override async Task OnInitializedAsync()
-{
-   users = await _userRepository.GetAll();
+    [Inject] private IGenericRepository<DataAccess.Entities.User> _userRepository { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await _userRepository.GetAll();
+    }
+
+    private async Task Submit()
+    {
+        var addedUser = await _userRepository.Add(newUser);
+        users.Add(addedUser);
+        newUser = new DataAccess.Entities.User();
+    }
+
+    private async Task Delete(DataAccess.Entities.User user)
+    {
+        await _userRepository.Delete(user);
+        users.Remove(user); 
+    }
+    
+    private void ToggleAddForm()
+    {
+        showAddForm = !showAddForm;
+    }
 }
-}
+
