@@ -8,107 +8,118 @@
 
 @if (workouts == null || exercises == null)
 {
-    <p>
-        <em>Loading...</em>
-    </p>
+<p>
+    <em>Loading...</em>
+</p>
 }
 else
 {
-    @foreach (var workout in workouts)
+@foreach (var workout in workouts)
+{
+<table class="table">
+    <thead>
+    <tr>
+        <th>@workout.User.Surname's workout</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
     {
-        <table class="table">
-            <thead>
-            <tr>
-                <th>@workout.User.Surname's workout</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
-            {
-                <tr>
-                    <td>@exercise.Name</td>
-                    <td>
-                        <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
-                        <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
-                    </td>
-                </tr>
-            }
-            </tbody>
-        </table>
+    <tr>
+        <td>@exercise.Name</td>
+        <td>
+            <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
+            <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
 
 <button @onclick="() => ToggleAddForm(workout.Id)" class="addButton">Add Exercise</button>
-         
-@if (showAddForm && currentWorkoutId == workout.Id)
-        {
-            <form method="post" @onsubmit="SubmitExercise">
-                <AntiforgeryToken />
-                <div>
-                    <label>Name:</label>
-                    <input class="input" @bind="newExercise.Name"/>
-                </div>
 
-                <button type="submit" class="submitButton">Submit</button>
-            </form>
-        }
-    }
+@if (showAddForm && currentWorkoutId == workout.Id)
+{
+<form method="post" @onsubmit="SubmitExercise">
+    <AntiforgeryToken />
+    <div>
+        <label>Name:</label>
+        <input class="input" @bind="newExercise.Name" />
+    </div>
+
+    <div>
+        <label>Workout:</label>
+        <select class="input" @bind="selectedWorkoutId">
+            @foreach (var wk in workouts)
+            {
+            <option value="@wk.Id">@wk.User.Surname's workout</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="submitButton">Submit</button>
+</form>
+}
+}
 }
 
 @code {
-    private List<Exercise> exercises;
-    private List<Workout> workouts;
-    private Exercise newExercise = new Exercise();
-    
-    private bool showAddForm = false;
-    private string currentWorkoutId = "";
+private List<Exercise> exercises;
+private List<Workout> workouts;
+private Exercise newExercise = new Exercise();
 
-    [Inject] IGenericRepository<Exercise> _exerciseRepository { get; set; }
-    [Inject] IGenericRepository<Workout> _workoutRepository { get; set; }
-    
-    protected override async Task OnInitializedAsync()
-    {
-        workouts = await _workoutRepository.GetAllWithInclude(u=>u.User);
-        exercises = await _exerciseRepository.GetAll(); 
-    }
+private bool showAddForm = false;
+private string currentWorkoutId = "";
+private string selectedWorkoutId = "";
 
-    private async Task SubmitExercise()
-    {
-        var workout = workouts.FirstOrDefault(w => w.Id == currentWorkoutId);
-        if (workout != null)
-        {
-            newExercise.Workout = workout;
-            newExercise.Workout.Id = workout.Id;
-            await _exerciseRepository.Add(newExercise);
-            exercises = await _exerciseRepository.GetAll();
-            newExercise = new Exercise();
-            showAddForm = false;
-            StateHasChanged();
-        }
-    }
-    
-    private void ToggleAddForm(string workoutId)
-    {
-        Console.WriteLine($"Toggleaddform with workoutid: {workoutId}");
-        if (currentWorkoutId == workoutId && showAddForm)
-        {
-            showAddForm = false;
-        }
-        else
-        {
-            currentWorkoutId = workoutId;
-            newExercise = new Exercise(); 
-            showAddForm = true;
-        }
-        StateHasChanged();
-    }
-    
-    private async Task DeleteExercise(Exercise exercise)
-    {
-        await _exerciseRepository.Delete(exercise);
-        exercises.Remove(exercise);
-    }
-    
-    private void EditExercise(Exercise exercise)
-    {
-        
-    }
+[Inject] IGenericRepository<Exercise> _exerciseRepository { get; set; }
+[Inject] IGenericRepository<Workout> _workoutRepository { get; set; }
+
+protected override async Task OnInitializedAsync()
+{
+workouts = await _workoutRepository.GetAllWithInclude(u => u.User);
+exercises = await _exerciseRepository.GetAll();
+}
+
+private async Task SubmitExercise()
+{
+var workout = workouts.FirstOrDefault(w => w.Id == selectedWorkoutId);
+if (workout != null)
+{
+newExercise.Workout = workout;
+newExercise.Workout.Id = workout.Id;
+await _exerciseRepository.Add(newExercise);
+exercises = await _exerciseRepository.GetAll();
+newExercise = new Exercise();
+showAddForm = false;
+StateHasChanged();
+}
+}
+
+private void ToggleAddForm(string workoutId)
+{
+Console.WriteLine($"Toggleaddform with workoutid: {workoutId}");
+if (currentWorkoutId == workoutId && showAddForm)
+{
+showAddForm = false;
+}
+else
+{
+currentWorkoutId = workoutId;
+showAddForm = true;
+}
+selectedWorkoutId = workoutId;
+StateHasChanged();
+}
+
+private async Task DeleteExercise(Exercise exercise)
+{
+await _exerciseRepository.Delete(exercise);
+exercises.Remove(exercise);
+}
+
+private void EditExercise(Exercise exercise)
+{
+
+}
 }
