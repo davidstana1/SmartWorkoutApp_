@@ -19,69 +19,118 @@ else
 {
     <table class="table">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Phone</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Phone</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var user in users)
-        {
-            <tr>
-                <td>@user.Name</td>
-                <td>@user.Surname</td>
-                <td>@user.Email</td>
-                <td>@user.Age</td>
-                <td>@user.Phone</td>
-                <td>
-                    <button class="deleteButton" @onclick="() => Delete(user)">Delete</button>
-                </td>
-            </tr>
-            
-        }
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Surname</td>
+                    <td>@user.Email</td>
+                    <td>@user.Age</td>
+                    <td>@user.Phone</td>
+                    <td>
+                        <button class="deleteButton" @onclick="() => Delete(user)">Delete</button>
+                        <button class="updateButton" @onclick="() => Edit(user)">Update</button>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 
     <button @onclick="ToggleAddForm" class="addButton">Add User</button>
+
+    <div class="popup @(showAddForm ? "show" : "")">
+        <span class="popuptext" id="addUserPopup">
+            <form method="post" @onsubmit="Submit">
+                <AntiforgeryToken />
+
+                <div>
+                    <label>Name:</label>
+                    <input class="input" @bind=newUser.Name />
+                </div>
+                <div>
+                    <label>Surname:</label>
+                    <input class="input" @bind=newUser.Surname />
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input class="input" @bind=newUser.Email />
+                </div>
+                <div>
+                    <label>Age:</label>
+                    <input class="input" @bind=newUser.Age />
+                </div>
+                <div>
+                    <label>Phone:</label>
+                    <input class="input" @bind=newUser.Phone />
+                </div>
+                <button type="submit" class="submitButton">Submit</button>
+                <button type="button" class="cancelButton" @onclick="CancelAdd">Cancel</button>
+            </form>
+        </span>
+    </div>
     
-    @if (showAddForm)
+    @if (showEditForm) 
     {
-        <form method="post" @onsubmit="Submit" @formname="addUser">
-            <AntiforgeryToken />
+        <div class="popup show">
+            <span class="popuptext" id="editUserPopup">
+                <form method="post" @onsubmit="Update">
+                    <AntiforgeryToken />
 
-            <div>
-                <label>Name:</label>
-                <input class="input" @bind=newUser.Name />
-            </div>
-            <div>
-                <label>Surname:</label>
-                <input class="input" @bind=newUser.Surname />
-            </div>
-            <div>
-                <label>Email:</label>
-                <input class="input" @bind=newUser.Email />
-            </div>
-            <div>
-                <label>Age:</label>
-                <input class="input" @bind=newUser.Age />
-            </div>
-            <div>
-                <label>Phone:</label>
-                <input class="input" @bind=newUser.Phone />
-            </div>
-            <button type="submit" class="submitButton">Submit</button>
-        </form>
-    }   
-
+                    <div>
+                        <label>Name:</label>
+                        <input class="input" @bind=selectedUser.Name />
+                    </div>
+                    <div>
+                        <label>Surname:</label>
+                        <input class="input" @bind=selectedUser.Surname />
+                    </div>
+                    <div>
+                        <label>Email:</label>
+                        <input class="input" @bind=selectedUser.Email />
+                    </div>
+                    <div>
+                        <label>Age:</label>
+                        <input class="input" @bind=selectedUser.Age />
+                    </div>
+                    <div>
+                        <label>Phone:</label>
+                        <input class="input" @bind=selectedUser.Phone />
+                    </div>
+                    <button type="submit" class="submitButton">Update</button>
+                    <button type="button" class="cancelButton" @onclick="CancelUpdate">Cancel</button>
+                </form>
+            </span>
+        </div>
+    }
+    @if (showDeleteConfirmation)
+    {
+        <div class="popup show">
+            <span class="popuptext" id="deleteUserPopup">
+                <p>Are you sure you want to delete @userToDelete.Surname?</p>
+                <button type="button" class="submitButton" @onclick="DeleteConfirmed">Yes</button>
+                <button type="button" class="cancelButton" @onclick="CancelDelete">No</button>
+            </span>
+        </div>
+    }
 }
 
 @code {
     private List<DataAccess.Entities.User> users;
     private DataAccess.Entities.User newUser = new DataAccess.Entities.User();
     private bool showAddForm = false;
+    private DataAccess.Entities.User selectedUser; 
+    private bool showEditForm = false; 
+    private bool showDeleteConfirmation = false; 
+    private DataAccess.Entities.User userToDelete;
 
     [Inject] private IGenericRepository<DataAccess.Entities.User> _userRepository { get; set; }
 
@@ -95,17 +144,63 @@ else
         var addedUser = await _userRepository.Add(newUser);
         users.Add(addedUser);
         newUser = new DataAccess.Entities.User();
+        showAddForm = false;
     }
 
     private async Task Delete(DataAccess.Entities.User user)
     {
-        await _userRepository.Delete(user);
-        users.Remove(user); 
+        userToDelete = user;
+        showDeleteConfirmation = true;
+    }
+    
+    private void DeleteConfirmed()
+    {
+        _userRepository.Delete(userToDelete);
+        users.Remove(userToDelete);
+        
+        userToDelete = null;
+        showDeleteConfirmation = false;
+    }
+    
+    private void CancelDelete()
+    {
+        userToDelete = null;
+        showDeleteConfirmation = false;
     }
     
     private void ToggleAddForm()
     {
         showAddForm = !showAddForm;
+        if (showAddForm)
+        {
+            newUser = new DataAccess.Entities.User();
+        }
+    }
+    
+    private void Edit(DataAccess.Entities.User user)
+    {
+        selectedUser = user;
+        showEditForm = true; 
+        showAddForm = false; 
+    }
+
+    private async Task Update()
+    {
+        await _userRepository.Update(selectedUser);
+        selectedUser = null;
+        showEditForm = false;
+        users = await _userRepository.GetAll();
+    }
+    
+    private void CancelAdd()
+    {
+        showAddForm = false;
+        newUser = new DataAccess.Entities.User();
+    }
+    
+    private void CancelUpdate()
+    {
+        selectedUser = null;
+        showEditForm = false; 
     }
 }
-

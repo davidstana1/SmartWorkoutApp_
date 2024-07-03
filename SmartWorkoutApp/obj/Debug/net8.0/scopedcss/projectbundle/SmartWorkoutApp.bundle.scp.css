@@ -201,6 +201,26 @@ main[b-zvvyaqj43l] {
         overflow-y: auto;
     }
 }
+/* _content/SmartWorkoutApp/Components/Pages/Exercises.razor.rz.scp.css */
+/*
+.addButton {
+    border: none;
+    color: white;
+    background-color:green;
+    padding: 15px 32px;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-color: green;
+    margin-top: 10px;
+}
+
+.addButton:hover{
+    background-color : limegreen;
+    color:white;
+}*/
 /* _content/SmartWorkoutApp/Components/Pages/User.razor.rz.scp.css */
 .addButton[b-u64o2fnfgi] {
     border: none;
@@ -221,18 +241,66 @@ main[b-zvvyaqj43l] {
     color:white;
 }
 
-.submitButton[b-u64o2fnfgi]{
+/* Popup container */
+.popup[b-u64o2fnfgi] {
+    position: fixed;
+    display: none;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Popup content */
+.popup .popuptext[b-u64o2fnfgi] {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ajustează lățimea popup-ului */
+    max-width: 500px; /* Limităm lățimea maximă */
+    position: absolute;
+    left: 50%; /* Centrăm pe orizontală */
+    top: 50%; /* Centrăm pe verticală */
+    transform: translate(-50%, -50%); /* Corectăm poziționarea pentru centrat */
+}
+
+/* Add animation */
+@keyframes fadeIn-b-u64o2fnfgi {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.show[b-u64o2fnfgi] {
+    display: block;
+    animation: fadeIn-b-u64o2fnfgi 0.5s;
+}
+
+.submitButton[b-u64o2fnfgi], .cancelButton[b-u64o2fnfgi] {
     border: none;
     color: white;
-    background-color:darkslateblue;
-    padding: 15px 32px;
+    padding: 10px 20px;
     border-radius: 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    border-color: darkslateblue;
-    margin-top: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.submitButton[b-u64o2fnfgi] {
+    background-color: darkgreen;
+}
+
+.cancelButton[b-u64o2fnfgi] {
+    background-color: darkred;
+    float: right; 
 }
 
 .submitButton:hover[b-u64o2fnfgi]
@@ -265,4 +333,8 @@ main[b-zvvyaqj43l] {
     box-sizing: border-box;
     border: 2px solid darkslateblue;
     border-radius: 100px;
+}
+
+.cancelButton:hover[b-u64o2fnfgi] {
+    background-color: crimson;
 }

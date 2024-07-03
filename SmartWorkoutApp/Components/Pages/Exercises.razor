@@ -3,6 +3,7 @@
 @using DataAccess.Repository
 @using DataAccess.Repository.Exercises
 @using DataAccess.Repository.Workout
+@rendermode InteractiveServer
 <h3>Exercises</h3>
 
 @if (workouts == null || exercises == null)
@@ -26,16 +27,39 @@ else
             {
                 <tr>
                     <td>@exercise.Name</td>
+                    <td>
+                        <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
+                        <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
+                    </td>
                 </tr>
             }
             </tbody>
         </table>
+
+<button @onclick="() => ToggleAddForm(workout.Id)" class="addButton">Add Exercise</button>
+         
+@if (showAddForm && currentWorkoutId == workout.Id)
+        {
+            <form method="post" @onsubmit="SubmitExercise">
+                <AntiforgeryToken />
+                <div>
+                    <label>Name:</label>
+                    <input class="input" @bind="newExercise.Name"/>
+                </div>
+
+                <button type="submit" class="submitButton">Submit</button>
+            </form>
+        }
     }
 }
 
 @code {
     private List<Exercise> exercises;
     private List<Workout> workouts;
+    private Exercise newExercise = new Exercise();
+    
+    private bool showAddForm = false;
+    private string currentWorkoutId = "";
 
     [Inject] IGenericRepository<Exercise> _exerciseRepository { get; set; }
     [Inject] IGenericRepository<Workout> _workoutRepository { get; set; }
@@ -44,5 +68,47 @@ else
     {
         workouts = await _workoutRepository.GetAllWithInclude(u=>u.User);
         exercises = await _exerciseRepository.GetAll(); 
+    }
+
+    private async Task SubmitExercise()
+    {
+        var workout = workouts.FirstOrDefault(w => w.Id == currentWorkoutId);
+        if (workout != null)
+        {
+            newExercise.Workout = workout;
+            newExercise.Workout.Id = workout.Id;
+            await _exerciseRepository.Add(newExercise);
+            exercises = await _exerciseRepository.GetAll();
+            newExercise = new Exercise();
+            showAddForm = false;
+            StateHasChanged();
+        }
+    }
+    
+    private void ToggleAddForm(string workoutId)
+    {
+        Console.WriteLine($"Toggleaddform with workoutid: {workoutId}");
+        if (currentWorkoutId == workoutId && showAddForm)
+        {
+            showAddForm = false;
+        }
+        else
+        {
+            currentWorkoutId = workoutId;
+            newExercise = new Exercise(); 
+            showAddForm = true;
+        }
+        StateHasChanged();
+    }
+    
+    private async Task DeleteExercise(Exercise exercise)
+    {
+        await _exerciseRepository.Delete(exercise);
+        exercises.Remove(exercise);
+    }
+    
+    private void EditExercise(Exercise exercise)
+    {
+        
     }
 }
