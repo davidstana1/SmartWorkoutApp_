@@ -1,23 +1,109 @@
-.addButton[b-u64o2fnfgi] {
+.page-title[b-u64o2fnfgi] {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    color: #2c3e50; /* Nuanță de albastru închis */
+    background: linear-gradient(to right, #6574cd, #4a69bd); /* Gradient albastru-mov */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px slateblue; /* Umbra albastru-mov */
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.table[b-u64o2fnfgi] {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    color: #2c3e50; /* Text albastru închis */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th[b-u64o2fnfgi] {
+    background-color: slateblue; /* Verde închis pentru antete */
+    color: white;
+}
+
+.table tr:nth-child(even)[b-u64o2fnfgi] {
+    background-color: #f2f2f2; /* Fundal gri deschis pentru rânduri pare */
+}
+
+.addButton[b-u64o2fnfgi], .submitButton[b-u64o2fnfgi], .cancelButton[b-u64o2fnfgi], .deleteButton[b-u64o2fnfgi], .updateButton[b-u64o2fnfgi] {
     border: none;
     color: white;
-    background-color:green;
     padding: 15px 32px;
     border-radius: 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-color: green;
     margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-.addButton:hover[b-u64o2fnfgi]{
-    background-color : limegreen;
+.addButton[b-u64o2fnfgi] {
+    background-color: #4CAF50; /* Verde închis pentru butoane */
+}
+
+.addButton:hover[b-u64o2fnfgi] {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.submitButton[b-u64o2fnfgi] {
+    background-color: #2c3e50; /* Albastru închis pentru butoane de submit */
+}
+
+.submitButton:hover[b-u64o2fnfgi] {
+    background-color: #1a2834;
+    transform: scale(1.05);
+}
+
+.cancelButton[b-u64o2fnfgi] {
+    background-color: #ff6347; /* Roșu aprins pentru butoane de cancel */
+}
+
+.cancelButton:hover[b-u64o2fnfgi] {
+    background-color: #ff4834;
+    transform: scale(1.05);
+}
+
+.deleteButton[b-u64o2fnfgi] {
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: transparent;
+    border: 1px solid #ff6347; /* Contur roșu pentru butoane de ștergere */
+    border-radius: 5px;
+    color: #ff6347;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.deleteButton:hover[b-u64o2fnfgi] {
+    background-color: #ff6347;
+    color: white;
+}
+
+.updateButton[b-u64o2fnfgi] {
+    background-color: transparent; /* Albastru pentru butoane de actualizare */
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #005bb5;
+    color: #005bb5;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.updateButton:hover[b-u64o2fnfgi] {
+    background-color: #005bb5;
     color:white;
 }
 
-/* Popup container */
 .popup[b-u64o2fnfgi] {
     position: fixed;
     display: none;
@@ -30,27 +116,18 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Popup content */
 .popup .popuptext[b-u64o2fnfgi] {
     background-color: #fefefe;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Ajustează lățimea popup-ului */
-    max-width: 500px; /* Limităm lățimea maximă */
+    width: 80%;
+    max-width: 500px;
     position: absolute;
-    left: 50%; /* Centrăm pe orizontală */
-    top: 50%; /* Centrăm pe verticală */
-    transform: translate(-50%, -50%); /* Corectăm poziționarea pentru centrat */
-}
-
-/* Add animation */
-@keyframes fadeIn-b-u64o2fnfgi {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .show[b-u64o2fnfgi] {
@@ -58,59 +135,31 @@
     animation: fadeIn-b-u64o2fnfgi 0.5s;
 }
 
-.submitButton[b-u64o2fnfgi], .cancelButton[b-u64o2fnfgi] {
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    cursor: pointer;
+.form-group[b-u64o2fnfgi] {
+    margin-bottom: 15px;
 }
 
-.submitButton[b-u64o2fnfgi] {
-    background-color: darkgreen;
+.form-group label[b-u64o2fnfgi] {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: 'Arial', sans-serif;
 }
 
-.cancelButton[b-u64o2fnfgi] {
-    background-color: darkred;
-    float: right; 
-}
-
-.submitButton:hover[b-u64o2fnfgi]
-{
-    background-color: slateblue;
-    color:white;
-}
-
-.deleteButton[b-u64o2fnfgi] {
-    padding: 8px 12px; 
-    font-size: 14px;
-    background-color: transparent; 
-    border: 1px solid red;
-    border-radius: 5px; 
-    color: red; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease, color 0.3s ease; 
-}
-
-.deleteButton:hover[b-u64o2fnfgi] {
-    background-color: red;
-    color: white; 
-}
-
-.input[b-u64o2fnfgi]{
-    width: 200px;
-    height: 30px;
-    padding: 12px 20px;
-    margin: 5px 0;
+.input[b-u64o2fnfgi] {
+    width: 100%;
+    padding: 10px;
     box-sizing: border-box;
-    border: 2px solid darkslateblue;
-    border-radius: 100px;
+    border: 2px solid darkslateblue; /* Contur verde pentru inputuri */
+    border-radius: 4px;
+    font-family: 'Arial', sans-serif;
 }
 
-.cancelButton:hover[b-u64o2fnfgi] {
-    background-color: crimson;
+@keyframes fadeIn-b-u64o2fnfgi {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

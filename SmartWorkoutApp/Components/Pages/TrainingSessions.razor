@@ -1,0 +1,95 @@
+﻿@page "/TrainingSessions"
+@using DataAccess.Entities
+@using DataAccess.Repository
+@using DataAccess.Repository.Workout
+@rendermode InteractiveServer
+
+<PageTitle>Training Sessions</PageTitle>
+
+<h1 class="page-title">Training Sessions</h1>
+
+@if (workouts == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    @foreach (var userGroup in workouts.GroupBy(w => w.User))
+    {
+        <h2>@userGroup.Key.Name @userGroup.Key.Surname's Training Sessions</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Duration</th>
+                    <th>Exercises</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var workout in userGroup)
+                {
+                    <tr>
+                        <td>@workout.Date.ToShortDateString()</td>
+                        <td>@workout.Duration</td>
+                        <td>
+                            <button class="deleteButton" @onclick="() => DeleteWorkout(workout)">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <table class="table sub-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var exercise in workout.Exercises)
+                                    {
+                                        <tr>
+                                            <td>@exercise.Name</td>
+                                            <td>
+                                                <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
+                                                <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+
+@code {
+    private List<Workout> workouts;
+    [Inject] private IGenericRepository<Workout> _workoutRepository { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        workouts = await _workoutRepository.GetAllWithInclude(w => w.User, w => w.Exercises);
+    }
+
+    private async Task DeleteWorkout(Workout workout)
+    {
+        await _workoutRepository.Delete(workout);
+        workouts.Remove(workout);
+    }
+
+    private async Task DeleteExercise(Exercise exercise)
+    {
+        // Implement delete functionality for exercises if needed
+    }
+
+    private void EditExercise(Exercise exercise)
+    {
+        // Implement edit functionality for exercises if needed
+    }
+}

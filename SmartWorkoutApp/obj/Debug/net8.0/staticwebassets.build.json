@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qHeIIjzRENwA/tblyt2r7YuQj0T0QX0gqkEVVpmt7yg=",
+  "Hash": "0/nas0z36ZvkE/Rnqa2HjLud4PQkqqU9UtR+6q9Djyw=",
   "Source": "SmartWorkoutApp",
   "BasePath": "_content/SmartWorkoutApp",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\styles.css",
+      "SourceId": "SmartWorkoutApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
+      "BasePath": "_content/SmartWorkoutApp",
+      "RelativePath": "styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\styles.css"
     }
   ]
 }

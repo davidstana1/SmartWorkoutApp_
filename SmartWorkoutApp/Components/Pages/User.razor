@@ -7,200 +7,201 @@
 
 <PageTitle>Users</PageTitle>
 
-<h1>Users</h1>
-
+<h1 class="page-title">Users</h1>
+<link href="styles.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 @if (users == null)
-{   
-    <p>
-        <em>Loading...</em>
-    </p>
+{
+<p>
+    <em>Loading...</em>
+</p>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Email</th>
-                <th>Age</th>
-                <th>Phone</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in users)
-            {
-                <tr>
-                    <td>@user.Name</td>
-                    <td>@user.Surname</td>
-                    <td>@user.Email</td>
-                    <td>@user.Age</td>
-                    <td>@user.Phone</td>
-                    <td>
-                        <button class="deleteButton" @onclick="() => Delete(user)">Delete</button>
-                        <button class="updateButton" @onclick="() => Edit(user)">Update</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Phone</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in users)
+    {
+    <tr>
+        <td>@user.Name</td>
+        <td>@user.Surname</td>
+        <td>@user.Email</td>
+        <td>@user.Age</td>
+        <td>@user.Phone</td>
+        <td>
+            <button class="deleteButton" @onclick="() => Delete(user)">Delete</button>
+            <button class="updateButton" @onclick="() => Edit(user)">Update</button>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>
 
-    <button @onclick="ToggleAddForm" class="addButton">Add User</button>
+<button @onclick="ToggleAddForm" class="addButton"><i class="fas fa-user-plus"></i> Add User</button>
 
-    <div class="popup @(showAddForm ? "show" : "")">
+<div class="popup @(showAddForm ? "show" : "")">
         <span class="popuptext" id="addUserPopup">
             <form method="post" @onsubmit="Submit">
                 <AntiforgeryToken />
 
-                <div>
+                <div class="form-group">
                     <label>Name:</label>
-                    <input class="input" @bind=newUser.Name />
+                    <input class="input" @bind=newUser.Name required />
                 </div>
-                <div>
+                <div class="form-group">
                     <label>Surname:</label>
-                    <input class="input" @bind=newUser.Surname />
+                    <input class="input" @bind=newUser.Surname required />
                 </div>
-                <div>
+                <div class="form-group">
                     <label>Email:</label>
-                    <input class="input" @bind=newUser.Email />
+                    <input class="input" @bind=newUser.Email type="email" required />
                 </div>
-                <div>
+                <div class="form-group">
                     <label>Age:</label>
-                    <input class="input" @bind=newUser.Age />
+                    <input class="input" @bind=newUser.Age type="number" min="1" required />
                 </div>
-                <div>
+                <div class="form-group">
                     <label>Phone:</label>
-                    <input class="input" @bind=newUser.Phone />
+                    <input class="input" @bind=newUser.Phone required />
                 </div>
-                <button type="submit" class="submitButton">Submit</button>
-                <button type="button" class="cancelButton" @onclick="CancelAdd">Cancel</button>
+                <button type="submit" class="submitButton"><i class="fas fa-check"></i> Submit</button>
+                <button type="button" class="cancelButton" @onclick="CancelAdd"><i class="fas fa-times"></i> Cancel</button>
             </form>
         </span>
-    </div>
-    
-    @if (showEditForm) 
-    {
-        <div class="popup show">
+</div>
+
+@if (showEditForm)
+{
+<div class="popup show">
             <span class="popuptext" id="editUserPopup">
                 <form method="post" @onsubmit="Update">
                     <AntiforgeryToken />
 
-                    <div>
+                    <div class="form-group">
                         <label>Name:</label>
-                        <input class="input" @bind=selectedUser.Name />
+                        <input class="input" @bind=selectedUser.Name required />
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label>Surname:</label>
-                        <input class="input" @bind=selectedUser.Surname />
+                        <input class="input" @bind=selectedUser.Surname required />
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label>Email:</label>
-                        <input class="input" @bind=selectedUser.Email />
+                        <input class="input" @bind=selectedUser.Email type="email" required />
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label>Age:</label>
-                        <input class="input" @bind=selectedUser.Age />
+                        <input class="input" @bind=selectedUser.Age type="number" min="1" required />
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label>Phone:</label>
-                        <input class="input" @bind=selectedUser.Phone />
+                        <input class="input" @bind=selectedUser.Phone required />
                     </div>
-                    <button type="submit" class="submitButton">Update</button>
-                    <button type="button" class="cancelButton" @onclick="CancelUpdate">Cancel</button>
+                    <button type="submit" class="submitButton"><i class="fas fa-sync"></i> Update</button>
+                    <button type="button" class="cancelButton" @onclick="CancelUpdate"><i class="fas fa-times"></i> Cancel</button>
                 </form>
             </span>
-        </div>
-    }
-    @if (showDeleteConfirmation)
-    {
-        <div class="popup show">
+</div>
+}
+@if (showDeleteConfirmation)
+{
+<div class="popup show">
             <span class="popuptext" id="deleteUserPopup">
                 <p>Are you sure you want to delete @userToDelete.Surname?</p>
-                <button type="button" class="submitButton" @onclick="DeleteConfirmed">Yes</button>
-                <button type="button" class="cancelButton" @onclick="CancelDelete">No</button>
+                <button type="button" class="submitButton" @onclick="DeleteConfirmed"><i class="fas fa-check"></i> Yes</button>
+                <button type="button" class="cancelButton" @onclick="CancelDelete"><i class="fas fa-times"></i> No</button>
             </span>
-        </div>
-    }
+</div>
+}
 }
 
 @code {
-    private List<DataAccess.Entities.User> users;
-    private DataAccess.Entities.User newUser = new DataAccess.Entities.User();
-    private bool showAddForm = false;
-    private DataAccess.Entities.User selectedUser; 
-    private bool showEditForm = false; 
-    private bool showDeleteConfirmation = false; 
-    private DataAccess.Entities.User userToDelete;
+private List<DataAccess.Entities.User> users;
+private DataAccess.Entities.User newUser = new DataAccess.Entities.User();
+private bool showAddForm = false;
+private DataAccess.Entities.User selectedUser;
+private bool showEditForm = false;
+private bool showDeleteConfirmation = false;
+private DataAccess.Entities.User userToDelete;
 
-    [Inject] private IGenericRepository<DataAccess.Entities.User> _userRepository { get; set; }
+[Inject] private IGenericRepository<DataAccess.Entities.User> _userRepository { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        users = await _userRepository.GetAll();
-    }
+protected override async Task OnInitializedAsync()
+{
+users = await _userRepository.GetAll();
+}
 
-    private async Task Submit()
-    {
-        var addedUser = await _userRepository.Add(newUser);
-        users.Add(addedUser);
-        newUser = new DataAccess.Entities.User();
-        showAddForm = false;
-    }
+private async Task Submit()
+{
+var addedUser = await _userRepository.Add(newUser);
+users.Add(addedUser);
+newUser = new DataAccess.Entities.User();
+showAddForm = false;
+}
 
-    private async Task Delete(DataAccess.Entities.User user)
-    {
-        userToDelete = user;
-        showDeleteConfirmation = true;
-    }
-    
-    private void DeleteConfirmed()
-    {
-        _userRepository.Delete(userToDelete);
-        users.Remove(userToDelete);
-        
-        userToDelete = null;
-        showDeleteConfirmation = false;
-    }
-    
-    private void CancelDelete()
-    {
-        userToDelete = null;
-        showDeleteConfirmation = false;
-    }
-    
-    private void ToggleAddForm()
-    {
-        showAddForm = !showAddForm;
-        if (showAddForm)
-        {
-            newUser = new DataAccess.Entities.User();
-        }
-    }
-    
-    private void Edit(DataAccess.Entities.User user)
-    {
-        selectedUser = user;
-        showEditForm = true; 
-        showAddForm = false; 
-    }
+private async Task Delete(DataAccess.Entities.User user)
+{
+userToDelete = user;
+showDeleteConfirmation = true;
+}
 
-    private async Task Update()
-    {
-        await _userRepository.Update(selectedUser);
-        selectedUser = null;
-        showEditForm = false;
-        users = await _userRepository.GetAll();
-    }
-    
-    private void CancelAdd()
-    {
-        showAddForm = false;
-        newUser = new DataAccess.Entities.User();
-    }
-    
-    private void CancelUpdate()
-    {
-        selectedUser = null;
-        showEditForm = false; 
-    }
+private void DeleteConfirmed()
+{
+_userRepository.Delete(userToDelete);
+users.Remove(userToDelete);
+
+userToDelete = null;
+showDeleteConfirmation = false;
+}
+
+private void CancelDelete()
+{
+userToDelete = null;
+showDeleteConfirmation = false;
+}
+
+private void ToggleAddForm()
+{
+showAddForm = !showAddForm;
+if (showAddForm)
+{
+newUser = new DataAccess.Entities.User();
+}
+}
+
+private void Edit(DataAccess.Entities.User user)
+{
+selectedUser = user;
+showEditForm = true;
+showAddForm = false;
+}
+
+private async Task Update()
+{
+await _userRepository.Update(selectedUser);
+selectedUser = null;
+showEditForm = false;
+users = await _userRepository.GetAll();
+}
+
+private void CancelAdd()
+{
+showAddForm = false;
+newUser = new DataAccess.Entities.User();
+}
+
+private void CancelUpdate()
+{
+selectedUser = null;
+showEditForm = false;
+}
 }
