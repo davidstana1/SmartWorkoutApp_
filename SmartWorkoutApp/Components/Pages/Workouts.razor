@@ -8,41 +8,126 @@
 
 <h1>Workouts</h1>
 
+<div>
+    <h3>Add New Workout</h3>
+    <EditForm Model="newWorkout" OnValidSubmit="HandleValidSubmit">
+        <div class="form-group">
+            <label for="User">User</label>
+            <select class="form-control" @bind="selectedUserId" required>
+                <option value="" disabled>Select User</option>
+                @if (users != null)
+                {
+                @foreach (var user in users)
+                {
+                <option value="@user.Id">@user.Name @user.Surname</option>
+                }
+                }
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="Name">Workout Name</label>
+            <InputText class="form-control" id="Name" @bind-Value="newWorkout.Name" required />
+        </div>
+        <div class="form-group">
+            <label for="Day">Day</label>
+            <InputSelect class="form-control" id="Day" @bind-Value="newWorkout.Day" required>
+                @foreach (DayEnum day in Enum.GetValues(typeof(DayEnum)))
+                {
+                    <option value="@day">@day</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="form-group">
+            <label for="Duration">Duration</label>
+            <InputNumber class="form-control" id="Duration" @bind-Value="newWorkout.Duration" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Workout</button>
+    </EditForm>
+</div>
+
 @if (workouts == null)
 {
-<p>
-    <em>Loading...</em>
-</p>
+    <p>
+        <em>Loading...</em>
+    </p>
 }
 else
 {
-<table class="table">
-    <thead>
-    <tr>
-        <th>User</th>
-        <th>Duration</th>
-        <th>Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var workout in workouts)
-    {
-    <tr>
-        <td>@workout.User.Name @workout.User.Surname</td>
-        <td>@workout.Duration</td>
-        <td>@workout.Date</td>
-    </tr>
-    }
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Workout Name</th>
+                <th>Duration</th>
+                <th>Day</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var workout in workouts)
+            {
+                <tr>
+                    <td>@workout.User.Name @workout.User.Surname</td>
+                    <td>@workout.Name</td>
+                    <td>@workout.Duration</td>
+                    <td>@workout.Day</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 @code {
     private List<Workout> workouts;
+    private List<User> users;
+    private Workout newWorkout = new Workout { User = new User() };
+    private string selectedUserId = "";
+
     [Inject] private IGenericRepository<Workout> _workoutRepository { get; set; }
+    [Inject] private IGenericRepository<User> _userRepository { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        workouts = await _workoutRepository.GetAllWithInclude(u =>u.User);
+        workouts = await _workoutRepository.GetAllWithInclude(w => w.User);
+        users = await _userRepository.GetAll();
+        Console.WriteLine($"Number of users loaded: {users.Count}");
     }
+
+    private async Task HandleValidSubmit()
+    {
+        Console.WriteLine($"Selected user Id: {selectedUserId}");
+
+        var selectedUser = await _userRepository.GetById(selectedUserId);
+        Console.WriteLine($"Selected user: {selectedUser?.Name} {selectedUser?.Surname}");
+
+        if (selectedUser != null)
+        {
+            newWorkout.User = selectedUser;
+
+            try
+            {
+                await _workoutRepository.Add(newWorkout);
+                workouts.Add(newWorkout);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                Console.WriteLine($"Error adding workout: {ex.Message}");
+                return; // Exit early to prevent further execution
+            }
+
+            // Reset form fields
+            newWorkout = new Workout { User = new User() };
+
+            // Trigger UI update
+            StateHasChanged();
+        }
+        else
+        {
+            // Handle case where selectedUser is null (user not found)
+            Console.WriteLine("Selected user not found.");
+        }
+    }
+
+
 }

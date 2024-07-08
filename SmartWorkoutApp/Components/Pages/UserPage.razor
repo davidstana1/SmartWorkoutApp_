@@ -125,15 +125,15 @@ else
 }
 
 @code {
-private List<DataAccess.Entities.User> users;
-private DataAccess.Entities.User newUser = new DataAccess.Entities.User();
+private List<User> users;
+private User newUser = new User();
 private bool showAddForm = false;
-private DataAccess.Entities.User selectedUser;
+private User selectedUser;
 private bool showEditForm = false;
 private bool showDeleteConfirmation = false;
-private DataAccess.Entities.User userToDelete;
+private User userToDelete;
 
-[Inject] private IGenericRepository<DataAccess.Entities.User> _userRepository { get; set; }
+[Inject] private IGenericRepository<User> _userRepository { get; set; }
 
 protected override async Task OnInitializedAsync()
 {
@@ -144,11 +144,11 @@ private async Task Submit()
 {
 var addedUser = await _userRepository.Add(newUser);
 users.Add(addedUser);
-newUser = new DataAccess.Entities.User();
+newUser = new User();
 showAddForm = false;
 }
 
-private async Task Delete(DataAccess.Entities.User user)
+private async Task Delete(User user)
 {
 userToDelete = user;
 showDeleteConfirmation = true;
@@ -174,11 +174,11 @@ private void ToggleAddForm()
 showAddForm = !showAddForm;
 if (showAddForm)
 {
-newUser = new DataAccess.Entities.User();
+newUser = new User();
 }
 }
 
-private void Edit(DataAccess.Entities.User user)
+private void Edit(User user)
 {
 selectedUser = user;
 showEditForm = true;
@@ -196,7 +196,7 @@ users = await _userRepository.GetAll();
 private void CancelAdd()
 {
 showAddForm = false;
-newUser = new DataAccess.Entities.User();
+newUser = new User();
 }
 
 private void CancelUpdate()

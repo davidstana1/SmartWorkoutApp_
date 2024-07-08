@@ -71,6 +71,36 @@ namespace SmartWorkoutApp.Migrations
                     b.ToTable("Exercises");
                 });
 
+            modelBuilder.Entity("DataAccess.Entities.Trainer", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Trainer");
+                });
+
             modelBuilder.Entity("DataAccess.Entities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -86,17 +116,28 @@ namespace SmartWorkoutApp.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
                     b.Property<string>("Phone")
                         .HasColumnType("text");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Surname")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TrainerId")
                         .HasColumnType("text");
 
                     b.Property<double?>("Weight")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TrainerId");
 
                     b.ToTable("Users");
                 });
@@ -106,11 +147,15 @@ namespace SmartWorkoutApp.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<int>("Day")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("Duration")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -141,6 +186,15 @@ namespace SmartWorkoutApp.Migrations
                     b.Navigation("Workout");
                 });
 
+            modelBuilder.Entity("DataAccess.Entities.User", b =>
+                {
+                    b.HasOne("DataAccess.Entities.Trainer", "Trainer")
+                        .WithMany("Users")
+                        .HasForeignKey("TrainerId");
+
+                    b.Navigation("Trainer");
+                });
+
             modelBuilder.Entity("DataAccess.Entities.Workout", b =>
                 {
                     b.HasOne("DataAccess.Entities.User", "User")
@@ -155,6 +209,11 @@ namespace SmartWorkoutApp.Migrations
             modelBuilder.Entity("DataAccess.Entities.Exercise", b =>
                 {
                     b.Navigation("ExerciseLogs");
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.Trainer", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.User", b =>

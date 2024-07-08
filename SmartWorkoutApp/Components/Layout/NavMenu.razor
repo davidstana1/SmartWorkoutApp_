@@ -13,29 +13,46 @@
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
+        
+        <AuthorizeView Roles="Client,Trainer">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Workouts">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Workouts
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Workouts">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Workouts
-            </NavLink>
-        </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Exercises">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Exercises
-            </NavLink>
-        </div>
+        <AuthorizeView Roles="Client,Trainer">
+            <Authorized>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Exercises">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Exercises
+                </NavLink>
+            </div>
+            </Authorized>
+        </AuthorizeView>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Users">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Users
-            </NavLink>
-        </div>
+        <AuthorizeView Roles="Trainer">
+            <Authorized>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="Users">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Users
+                </NavLink>
+            </div>
+            </Authorized>
+        </AuthorizeView>
 
+        <AuthorizeView Roles="Client,Trainer">
+        <Authorized>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="TrainingSessions">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Training Sessions 
             </NavLink>
         </div>
+        </Authorized>
+        </AuthorizeView>
     </nav>
 </div>

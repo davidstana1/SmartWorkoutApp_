@@ -201,6 +201,9 @@ main[b-zvvyaqj43l] {
         overflow-y: auto;
     }
 }
+/* _content/SmartWorkoutApp/Components/Pages/Account/Login/AccessDenied.razor.rz.scp.css */
+/* _content/SmartWorkoutApp/Components/Pages/Account/Login/Login.razor.rz.scp.css */
+/* _content/SmartWorkoutApp/Components/Pages/Account/SignUp/SignUp.razor.rz.scp.css */
 /* _content/SmartWorkoutApp/Components/Pages/Exercises.razor.rz.scp.css */
 /*
 .addButton {
@@ -222,8 +225,8 @@ main[b-zvvyaqj43l] {
     color:white;
 }*/
 /* _content/SmartWorkoutApp/Components/Pages/TrainingSessions.razor.rz.scp.css */
-/* _content/SmartWorkoutApp/Components/Pages/User.razor.rz.scp.css */
-.page-title[b-u64o2fnfgi] {
+/* _content/SmartWorkoutApp/Components/Pages/UserPage.razor.rz.scp.css */
+.page-title[b-vgurfcm2i6] {
     font-family: 'Montserrat', sans-serif;
     font-size: 48px;
     color: #2c3e50; /* Nuanță de albastru închis */
@@ -238,7 +241,7 @@ main[b-zvvyaqj43l] {
     border-radius: 10px;
 }
 
-.table[b-u64o2fnfgi] {
+.table[b-vgurfcm2i6] {
     width: 100%;
     margin: 20px 0;
     border-collapse: collapse;
@@ -247,16 +250,16 @@ main[b-zvvyaqj43l] {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.table th[b-u64o2fnfgi] {
+.table th[b-vgurfcm2i6] {
     background-color: slateblue; /* Verde închis pentru antete */
     color: white;
 }
 
-.table tr:nth-child(even)[b-u64o2fnfgi] {
+.table tr:nth-child(even)[b-vgurfcm2i6] {
     background-color: #f2f2f2; /* Fundal gri deschis pentru rânduri pare */
 }
 
-.addButton[b-u64o2fnfgi], .submitButton[b-u64o2fnfgi], .cancelButton[b-u64o2fnfgi], .deleteButton[b-u64o2fnfgi], .updateButton[b-u64o2fnfgi] {
+.addButton[b-vgurfcm2i6], .submitButton[b-vgurfcm2i6], .cancelButton[b-vgurfcm2i6], .deleteButton[b-vgurfcm2i6], .updateButton[b-vgurfcm2i6] {
     border: none;
     color: white;
     padding: 15px 32px;
@@ -270,34 +273,34 @@ main[b-zvvyaqj43l] {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.addButton[b-u64o2fnfgi] {
+.addButton[b-vgurfcm2i6] {
     background-color: #4CAF50; /* Verde închis pentru butoane */
 }
 
-.addButton:hover[b-u64o2fnfgi] {
+.addButton:hover[b-vgurfcm2i6] {
     background-color: #45a049;
     transform: scale(1.05);
 }
 
-.submitButton[b-u64o2fnfgi] {
+.submitButton[b-vgurfcm2i6] {
     background-color: #2c3e50; /* Albastru închis pentru butoane de submit */
 }
 
-.submitButton:hover[b-u64o2fnfgi] {
+.submitButton:hover[b-vgurfcm2i6] {
     background-color: #1a2834;
     transform: scale(1.05);
 }
 
-.cancelButton[b-u64o2fnfgi] {
+.cancelButton[b-vgurfcm2i6] {
     background-color: #ff6347; /* Roșu aprins pentru butoane de cancel */
 }
 
-.cancelButton:hover[b-u64o2fnfgi] {
+.cancelButton:hover[b-vgurfcm2i6] {
     background-color: #ff4834;
     transform: scale(1.05);
 }
 
-.deleteButton[b-u64o2fnfgi] {
+.deleteButton[b-vgurfcm2i6] {
     padding: 8px 12px;
     font-size: 14px;
     background-color: transparent;
@@ -308,12 +311,12 @@ main[b-zvvyaqj43l] {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.deleteButton:hover[b-u64o2fnfgi] {
+.deleteButton:hover[b-vgurfcm2i6] {
     background-color: #ff6347;
     color: white;
 }
 
-.updateButton[b-u64o2fnfgi] {
+.updateButton[b-vgurfcm2i6] {
     background-color: transparent; /* Albastru pentru butoane de actualizare */
     padding: 8px 12px;
     font-size: 14px;
@@ -324,12 +327,12 @@ main[b-zvvyaqj43l] {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.updateButton:hover[b-u64o2fnfgi] {
+.updateButton:hover[b-vgurfcm2i6] {
     background-color: #005bb5;
     color:white;
 }
 
-.popup[b-u64o2fnfgi] {
+.popup[b-vgurfcm2i6] {
     position: fixed;
     display: none;
     z-index: 1;
@@ -341,7 +344,7 @@ main[b-zvvyaqj43l] {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.popup .popuptext[b-u64o2fnfgi] {
+.popup .popuptext[b-vgurfcm2i6] {
     background-color: #fefefe;
     padding: 20px;
     border: 1px solid #888;
@@ -355,23 +358,23 @@ main[b-zvvyaqj43l] {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.show[b-u64o2fnfgi] {
+.show[b-vgurfcm2i6] {
     display: block;
-    animation: fadeIn-b-u64o2fnfgi 0.5s;
+    animation: fadeIn-b-vgurfcm2i6 0.5s;
 }
 
-.form-group[b-u64o2fnfgi] {
+.form-group[b-vgurfcm2i6] {
     margin-bottom: 15px;
 }
 
-.form-group label[b-u64o2fnfgi] {
+.form-group label[b-vgurfcm2i6] {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
     font-family: 'Arial', sans-serif;
 }
 
-.input[b-u64o2fnfgi] {
+.input[b-vgurfcm2i6] {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
@@ -380,7 +383,7 @@ main[b-zvvyaqj43l] {
     font-family: 'Arial', sans-serif;
 }
 
-@keyframes fadeIn-b-u64o2fnfgi {
+@keyframes fadeIn-b-vgurfcm2i6 {
     from {
         opacity: 0;
     }

@@ -14,4 +14,18 @@ public class WorkoutRepository : GenericRepository<Entities.Workout> , IWorkoutR
     {
         return await GetAllWithInclude(u=>u.User);
     }
+    
+    public async Task<List<Entities.Workout>> GetALlWithExerciseLogs()
+    {
+        return await _appDbContext.Workouts
+            .Include(w => w.User)
+            .Include(w => w.Exercises)
+            .ThenInclude(e => e.ExerciseLogs)
+            .ToListAsync();
+    }
+
+    public async Task<Entities.Workout> AddWorkout(Entities.Workout workout)
+    {
+        return await Add(workout);
+    }
 }

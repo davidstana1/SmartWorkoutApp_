@@ -4,22 +4,34 @@ using DataAccess.Repository;
 using DataAccess.Repository.Exercises;
 using DataAccess.Repository.Users;
 using DataAccess.Repository.Workout;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using SmartWorkoutApp;
 using SmartWorkoutApp.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
-
 var configuration = builder.Configuration;
 var services = builder.Services;
+services.AddRepositories(configuration);
 
-services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(configuration.GetConnectionString("ConnectionString")));
-services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-services.AddScoped<IGenericRepository<User>, GenericRepository<User>>();
+services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+
+services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "auth_token";
+        options.LoginPath = "/Login";
+        options.Cookie.MaxAge=TimeSpan.FromMinutes(30);
+        options.AccessDeniedPath = "/AccessDenied";
+    });
+services.AddHttpContextAccessor();
+services.AddAuthorization();
+services.AddCascadingAuthenticationState();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,9 +43,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
+app.UseRouting();
 app.UseAntiforgery();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

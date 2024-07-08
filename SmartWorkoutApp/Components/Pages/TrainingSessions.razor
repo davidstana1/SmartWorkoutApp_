@@ -23,7 +23,8 @@ else
         <table class="table">
             <thead>
                 <tr>
-                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Day</th>
                     <th>Duration</th>
                     <th>Exercises</th>
                 </tr>
@@ -32,10 +33,15 @@ else
                 @foreach (var workout in userGroup)
                 {
                     <tr>
-                        <td>@workout.Date.ToShortDateString()</td>
+                        <td>@workout.Name</td>
+                        <td>@workout.Day</td>
                         <td>@workout.Duration</td>
                         <td>
-                            <button class="deleteButton" @onclick="() => DeleteWorkout(workout)">Delete</button>
+                            <AuthorizeView Roles="Trainer">
+                                <Authorized>
+                                <button class="btn btn-danger" @onclick="() => DeleteWorkout(workout)">Delete</button>
+                                </Authorized>
+                            </AuthorizeView>
                         </td>
                     </tr>
                     <tr>
@@ -48,16 +54,23 @@ else
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var exercise in workout.Exercises)
-                                    {
-                                        <tr>
-                                            <td>@exercise.Name</td>
-                                            <td>
-                                                <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
-                                                <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
-                                            </td>
-                                        </tr>
-                                    }
+                                @foreach (var exercise in workout.Exercises)
+                                {
+                                    <tr>
+                                        <td>@exercise.Name</td>
+                                        <td>
+                                            <AuthorizeView Roles="Trainer">
+                                                <Authorized>
+                                                    <button class="btn btn-danger" @onclick="() => DeleteExercise(exercise)">Delete</button>
+                                                    <button class="btn btn-warning" @onclick="() => EditExercise(exercise)">Update</button>
+                                                </Authorized>
+                                            </AuthorizeView>
+                                            <button class="btn btn-primary" @onclick="() => ShowLogs(exercise)">See Logs</button>
+                                        </td>
+                                    </tr>
+                                }
+
+
                                 </tbody>
                             </table>
                         </td>
@@ -68,13 +81,73 @@ else
     }
 }
 
+@if (selectedExercise != null)
+{
+    <div class="modal fade show d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@selectedExercise.Name Logs</h5>
+                    <button type="button" class="close" @onclick="CloseLogs" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Weight</th>
+                                <th>Sets</th>
+                                <th>Reps</th>
+                                <th>Duration</th>
+                                <th>Distance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var log in selectedExercise.ExerciseLogs)
+                            {
+                                <tr>
+                                    <td>@log.Weight</td>
+                                    <td>@log.Sets</td>
+                                    <td>@log.Reps</td>
+                                    <td>@log.Duration</td>
+                                    <td>@log.Distance</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CloseLogs">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+
 @code {
     private List<Workout> workouts;
-    [Inject] private IGenericRepository<Workout> _workoutRepository { get; set; }
+    private List<User> users;
+    private Exercise selectedExercise;
+
+    [Inject] private IWorkoutRepository _workoutRepository { get; set; }
+    [Inject] private IGenericRepository<User> _userRepository { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        workouts = await _workoutRepository.GetAllWithInclude(w => w.User, w => w.Exercises);
+        workouts = await _workoutRepository.GetALlWithExerciseLogs();
+        users = await _userRepository.GetAll();
+    }
+
+    private void ShowLogs(Exercise exercise)
+    {
+        selectedExercise = exercise;
+    }
+
+    private void CloseLogs()
+    {
+        selectedExercise = null;
     }
 
     private async Task DeleteWorkout(Workout workout)

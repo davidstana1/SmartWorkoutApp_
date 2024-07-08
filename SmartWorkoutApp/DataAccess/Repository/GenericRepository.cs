@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repository;
@@ -17,6 +18,11 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     public async Task<List<T>> GetAll()
     {
         return await _appDbContext.Set<T>().ToListAsync();
+    }
+    
+    public async Task<T> GetById(string id)
+    {
+        return await _dbSet.FindAsync(id);
     }
     
     public async Task<List<T>> GetAllWithInclude(params Expression<Func<T, object>>[] includeProperties)
@@ -48,5 +54,15 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         _dbSet.Update(entity);
         await _appDbContext.SaveChangesAsync();
+    }
+    
+    public async Task<T> GetBy(Expression<Func<T, bool>> predicate)
+    {
+        return await _dbSet.FirstOrDefaultAsync(predicate);
+    }
+    
+    public async Task<User> GetByEmail(string email)
+    {
+        return await _appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 }

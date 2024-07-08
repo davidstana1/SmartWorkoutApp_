@@ -1,0 +1,89 @@
+﻿@page "/Login"
+@using System.Security.Claims
+@using DataAccess.Entities
+@using DataAccess.Repository
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@inject IGenericRepository<User> _userRepository
+@inject IGenericRepository<Trainer> _trainerRepository
+@inject NavigationManager NavigationManager
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ILogger<Login> Logger
+
+<h3>Login</h3>
+
+<div class="row">
+    <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
+        <EditForm Model="@loginModel" OnValidSubmit="Authenticate" FormName="LoginForm">
+            <DataAnnotationsValidator />
+            <div class="mb-3 text-center flex-column">
+                <img src="/favicon.png" style="max-height: 5rem;" />
+                <h3>LOGIN</h3>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <InputText @bind-Value="loginModel.Email" class="form-control" placeholder="Email" />
+                <ValidationMessage For="@(() => loginModel.Email)" />
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <InputText @bind-Value="loginModel.Password" type="password" class="form-control" placeholder="Password" />
+                <ValidationMessage For="@(() => loginModel.Password)" />
+            </div>
+            <div class="mb-3 text-center">
+                @if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    <span class="text-danger">@errorMessage</span>
+                }
+            </div>
+            <div class="mb-3 d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <div class="mb-3 text-center">
+                <p>Don't have an account? <a href="/SignUp">Sign up here.</a></p>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+    
+    [SupplyParameterFromForm]
+    private LoginModel loginModel { get; set; } = new();
+    private string errorMessage;
+    private string token;
+    
+    private async Task Authenticate()
+    {
+            var user = await _userRepository.GetBy(u => u.Email == loginModel.Email);
+            var trainer = await _trainerRepository.GetBy(t => t.Email == loginModel.Email);
+
+            if ((user is null || loginModel.Password != user.Password) && (trainer is null || loginModel.Password != trainer.Password))
+            {
+                errorMessage = "Invalid Email or Password";
+                return;
+            }   
+
+            List<Claim> claims = new List<Claim>();
+
+            if (user != null && loginModel.Password == user.Password)
+            {
+                claims.Add(new Claim(ClaimTypes.Email, loginModel.Email));
+                claims.Add(new Claim(ClaimTypes.Role, user.Role.ToString()));
+            }
+            else if (trainer != null && loginModel.Password == trainer.Password)
+            {
+                claims.Add(new Claim(ClaimTypes.Email, loginModel.Email));
+                claims.Add(new Claim(ClaimTypes.Role, trainer.Role.ToString()));
+            }
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(principal);
+
+            NavigationManager.NavigateTo("/",forceLoad:true);
+    }
+    
+}
