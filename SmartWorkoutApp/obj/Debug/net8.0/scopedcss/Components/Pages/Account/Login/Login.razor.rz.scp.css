@@ -1,0 +1,135 @@
+*[b-huko45x1ba] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body[b-huko45x1ba] {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+.container[b-huko45x1ba] {
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    animation: fadeIn-b-huko45x1ba 1s ease-in-out;
+    margin-left: 110px; /* Adaugă o margine la stânga */
+    margin-right: 30px;
+}
+
+@keyframes fadeIn-b-huko45x1ba {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.container .title[b-huko45x1ba] {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+    margin-bottom: 20px;
+    animation: slideInFromLeft-b-huko45x1ba 1s ease-in-out;
+}
+
+@keyframes slideInFromLeft-b-huko45x1ba {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.content .row[b-huko45x1ba] {
+    display: flex;
+    justify-content: center;
+}
+
+.col-lg-4[b-huko45x1ba] {
+    width: 100%;
+    max-width: 400px;
+}
+
+.border[b-huko45x1ba] {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    animation: fadeInUp-b-huko45x1ba 1s ease-in-out;
+}
+
+@keyframes fadeInUp-b-huko45x1ba {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-control[b-huko45x1ba] {
+    height: 45px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus[b-huko45x1ba] {
+    border-color: #9b59b6;
+    box-shadow: 0 0 5px rgba(155, 89, 182, 0.5);
+}
+
+.btn-primary[b-huko45x1ba] {
+    height: 45px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+.btn-primary:hover[b-huko45x1ba] {
+    background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+}
+
+.login-link[b-huko45x1ba] {
+    text-align: center;
+    margin-top: 20px;
+    animation: fadeIn-b-huko45x1ba 1s ease-in-out;
+}
+
+.login-link a[b-huko45x1ba] {
+    color: #9b59b6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-link a:hover[b-huko45x1ba] {
+    color: #5d3275;
+}

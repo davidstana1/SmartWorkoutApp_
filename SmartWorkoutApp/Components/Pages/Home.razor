@@ -2,22 +2,62 @@
 
 <PageTitle>Home</PageTitle>
 
-<div class="row">
-    <div class="col-12">
-        <h2 class="fw-bolder">Welcome to <span class="text-danger">Smart Workout</span></h2>
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="cool-welcome-text">Welcome to Smart Workout</div>
+            <p class="lead text-muted">Your personalized fitness journey starts here.</p>
+        </div>
     </div>
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <AuthorizeView>
-                    <NotAuthorized>
-                        <span>You are not logged in. Please <a class="fw-bolder" href="/Login">click here</a> to login.</span>
-                    </NotAuthorized>
-                    <Authorized>
-                        <span>Logged in as <b>@context.User.Identity.Name</b>.<a class="fw-bolder" href="/logout">Click here</a> to logout.</span>
-                    </Authorized>
-                </AuthorizeView>
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <AuthorizeView>
+                        <NotAuthorized>
+                            <h5 class="card-title">Welcome, Guest!</h5>
+                            <p class="card-text">You are not logged in. Please <a class="fw-bolder text-primary" href="/Login">log in</a> or <a class="fw-bolder text-primary" href="/SignUp">sign up</a> to get started.</p>
+                        </NotAuthorized>
+                        <Authorized>
+                            <h5 class="card-title">Welcome back!</h5>
+                            <p class="card-text"><a class="fw-bolder text-danger" href="/Logout">Logout</a> if you wish to.</p>
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <h2 class="fw-bolder">Our Features</h2>
+            <p class="text-muted">Discover the benefits of using Smart Workout</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm mb-4 feature-card">
+                <div class="card-body">
+                    <h5 class="card-title">Personalized Workouts</h5>
+                    <p class="card-text">Get workout plans tailored to your goals and fitness level.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm mb-4 feature-card">
+                <div class="card-body">
+                    <h5 class="card-title">Progress Tracking</h5>
+                    <p class="card-text">Track your progress with detailed statistics and charts.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="card shadow-sm mb-4 feature-card">
+                <div class="card-body">
+                    <h5 class="card-title">Expert Guidance</h5>
+                    <p class="card-text">Get advice and tips from professional trainers.</p>
+                </div>
             </div>
         </div>
     </div>
 </div>
+

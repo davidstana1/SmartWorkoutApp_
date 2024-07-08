@@ -1,9 +1,105 @@
 ﻿@page "/SignUp"
+@using System.Security.Claims
+@using DataAccess.Entities
+@using DataAccess.Repository
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@inject IGenericRepository<User> _userRepository
+@inject NavigationManager NavigationManager
+@inject ILogger<SignUp> Logger
+@rendermode InteractiveServer
 
-<h3>Sign Up</h3>
-
-<!-- Formul de înregistrare -->
+<div class="container">
+    <div class="title">Registration</div>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <div class="content">
+        <EditForm Model="@signUpModel" OnValidSubmit="RegisterUser">
+            <DataAnnotationsValidator />
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Name</span>
+                    <InputText @bind-Value="signUpModel.Name" placeholder="Enter your name" required />
+                    <ValidationMessage For="@(() => signUpModel.Name)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Surname</span>
+                    <InputText @bind-Value="signUpModel.Surname" placeholder="Enter your surname" required />
+                    <ValidationMessage For="@(() => signUpModel.Surname)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <InputText @bind-Value="signUpModel.Email" placeholder="Enter your email" required />
+                    <ValidationMessage For="@(() => signUpModel.Email)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <InputText @bind-Value="signUpModel.Password" type="password" placeholder="Enter your password" required />
+                    <ValidationMessage For="@(() => signUpModel.Password)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Phone</span>
+                    <InputText @bind-Value="signUpModel.Phone" placeholder="Enter your phone number" required />
+                    <ValidationMessage For="@(() => signUpModel.Phone)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Weight</span>
+                    <InputNumber @bind-Value="signUpModel.Weight" placeholder="Enter your weight" required />
+                    <ValidationMessage For="@(() => signUpModel.Weight)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Age</span>
+                    <InputNumber @bind-Value="signUpModel.Age" placeholder="Enter your age" required />
+                    <ValidationMessage For="@(() => signUpModel.Age)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Role</span>
+                    <InputSelect @bind-Value="signUpModel.Role" required>
+                        <option value="">Select Role</option>
+                        <option value="Client">Client</option>
+                        <option value="Trainer">Trainer</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => signUpModel.Role)" />
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Register">
+            </div>
+            <div class="login-link">
+                Already have an account? <a href="/Login">Login now</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
 
 @code {
-    // Cod pentru gestionarea înregistrării utilizatorului
+private SignUpModel signUpModel = new();
+
+private async Task RegisterUser()
+{
+var user = await _userRepository.GetByEmail(signUpModel.Email);
+if (user is not null)
+{
+// Handle the error (e.g., show a message)
+return;
+}
+
+var newUser = new User
+{
+Name = signUpModel.Name,
+Surname = signUpModel.Surname,
+Email = signUpModel.Email,
+Password = signUpModel.Password,
+Phone = signUpModel.Phone,
+Weight = signUpModel.Weight,
+Age = signUpModel.Age,
+Role = Enum.Parse<RoleEnum>(signUpModel.Role, true)
+};
+
+await _userRepository.Add(newUser);
+
+NavigationManager.NavigateTo("/Login", forceLoad: true);
+}
+
+
 }

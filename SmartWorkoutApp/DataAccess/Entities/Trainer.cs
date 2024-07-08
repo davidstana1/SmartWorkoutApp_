@@ -10,5 +10,5 @@ public class Trainer : Entity
     public string? Email { get; set; }
     public string? Password { get; set; }
     public RoleEnum Role { get; set; } = RoleEnum.Trainer;
-    public List<User> Users { get; set; }
+    public List<User>? Users { get; set; }
 }

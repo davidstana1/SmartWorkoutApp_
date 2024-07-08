@@ -1,0 +1,64 @@
+.welcome-text[b-piqrqqt469] {
+    animation: fadeIn-b-piqrqqt469 2s ease-in-out;
+}
+
+.feature-card[b-piqrqqt469] {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover[b-piqrqqt469] {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn-b-piqrqqt469 {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.text-primary[b-piqrqqt469] {
+    color: #007bff; /* Bootstrap's primary color */
+}
+
+.text-primary:hover[b-piqrqqt469] , .text-primary:active[b-piqrqqt469]{
+    text-decoration: underline;
+}
+
+.text-danger[b-piqrqqt469] {
+    color: #cc40ff; /* Bootstrap's danger color */
+}
+
+.text-muted[b-piqrqqt469] {
+    color: #6c757d; /* Bootstrap's muted color */
+}
+
+.welcome[b-piqrqqt469] {
+    cursor: pointer;
+    margin: auto;
+    font-size: 5vmin;
+    font-weight: 300;
+    transition: font-weight 500ms ease-in-out;
+}
+
+.welcome:hover[b-piqrqqt469] {
+    font-weight: 900;
+}
+
+.cool-welcome-text[b-piqrqqt469] {
+    font-size: 4rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+    color: #cc40ff;
+    margin-top: 2rem; /* Adăugăm un spațiu de sus adecvat */
+    letter-spacing: 0.1em;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: white;
+    text-shadow: 4px 4px #c940ff, 10px 10px #000000;
+}

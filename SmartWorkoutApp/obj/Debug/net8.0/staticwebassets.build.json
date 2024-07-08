@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0/nas0z36ZvkE/Rnqa2HjLud4PQkqqU9UtR+6q9Djyw=",
+  "Hash": "adHG5tibFCNXmu8oNL9hiS2rClaGq8qF0f/srNkWWC4=",
   "Source": "SmartWorkoutApp",
   "BasePath": "_content/SmartWorkoutApp",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.png"
+    },
+    {
+      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\gantera.png",
+      "SourceId": "SmartWorkoutApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
+      "BasePath": "_content/SmartWorkoutApp",
+      "RelativePath": "gantera.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\gantera.png"
     },
     {
       "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\styles.css",

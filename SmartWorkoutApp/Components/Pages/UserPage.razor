@@ -133,7 +133,7 @@ private bool showEditForm = false;
 private bool showDeleteConfirmation = false;
 private User userToDelete;
 
-[Inject] private IGenericRepository<User> _userRepository { get; set; }
+[Inject] private IUserRepository _userRepository { get; set; }
 
 protected override async Task OnInitializedAsync()
 {
@@ -156,7 +156,7 @@ showDeleteConfirmation = true;
 
 private void DeleteConfirmed()
 {
-_userRepository.Delete(userToDelete);
+_userRepository.DeleteUser(userToDelete);
 users.Remove(userToDelete);
 
 userToDelete = null;

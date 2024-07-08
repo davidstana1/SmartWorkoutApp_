@@ -15,9 +15,16 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         _dbSet = _appDbContext.Set<T>(); 
     }
 
-    public async Task<List<T>> GetAll()
+    public async Task<List<T>> GetAll(Expression<Func<T, bool>> predicate = null)
     {
-        return await _appDbContext.Set<T>().ToListAsync();
+        IQueryable<T> query = _appDbContext.Set<T>();
+
+        if (predicate != null)
+        {
+            query = query.Where(predicate);
+        }
+
+        return await query.ToListAsync();
     }
     
     public async Task<T> GetById(string id)

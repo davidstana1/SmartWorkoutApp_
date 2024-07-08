@@ -28,4 +28,13 @@ public class WorkoutRepository : GenericRepository<Entities.Workout> , IWorkoutR
     {
         return await Add(workout);
     }
+    public async Task DeleteWorkoutsByUserIdAsync(string userId)
+    {
+        var workouts = await GetAll(w => w.User.Id == userId); // Exemplu de filtrare după UserId
+
+        foreach (var workout in workouts)
+        {
+            await Delete(workout);
+        }
+    }
 }

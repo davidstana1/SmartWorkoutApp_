@@ -1,8 +1,11 @@
 ﻿using DataAccess;
 using DataAccess.Entities;
 using DataAccess.Repository;
+using DataAccess.Repository.Users;
 using DataAccess.Repository.Workout;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace SmartWorkoutApp;
 
@@ -17,7 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IGenericRepository<Workout>, GenericRepository<Workout>>();
         services.AddScoped<IGenericRepository<Exercise>, GenericRepository<Exercise>>();
         services.AddScoped<IWorkoutRepository, WorkoutRepository>();
-
+        services.AddScoped<IUserRepository,UserRepository>();
         return services;
     }
 }

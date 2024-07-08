@@ -148,3 +148,4 @@ C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\scopedcss\Components\Pages\Account\Login\AccessDenied.razor.rz.scp.css
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\scopedcss\Components\Pages\Account\Login\Login.razor.rz.scp.css
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\scopedcss\Components\Pages\Account\SignUp\SignUp.razor.rz.scp.css
+C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\scopedcss\Components\Pages\Home.razor.rz.scp.css
