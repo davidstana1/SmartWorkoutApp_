@@ -14,7 +14,7 @@
             </NavLink>
         </div>
         
-        <AuthorizeView Roles="Client,Trainer">
+        <AuthorizeView Roles="Trainer">
             <Authorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Workouts">
@@ -25,7 +25,7 @@
         </AuthorizeView>
 
 
-        <AuthorizeView Roles="Client,Trainer">
+        <AuthorizeView Roles="Trainer">
             <Authorized>
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="Exercises">
@@ -45,14 +45,24 @@
             </Authorized>
         </AuthorizeView>
 
-        <AuthorizeView Roles="Client,Trainer">
-        <Authorized>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="TrainingSessions">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Training Sessions 
-            </NavLink>
-        </div>
-        </Authorized>
+        <AuthorizeView Roles="Trainer">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="TrainingSessions">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Training Sessions 
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Client">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="MyTrainingSessions">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> My Sessions
+                    </NavLink>
+                </div>
+            </Authorized>
         </AuthorizeView>
     </nav>
 </div>

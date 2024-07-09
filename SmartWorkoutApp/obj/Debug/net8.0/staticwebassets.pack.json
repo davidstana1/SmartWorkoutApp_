@@ -9,12 +9,20 @@
       "PackagePath": "staticwebassets\\app.css"
     },
     {
+      "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\barbell3.png",
+      "PackagePath": "staticwebassets\\barbell3.png"
+    },
+    {
       "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
       "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\dumbbell_726781.png",
+      "PackagePath": "staticwebassets\\dumbbell_726781.png"
     },
     {
       "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\favicon.png",
@@ -25,8 +33,32 @@
       "PackagePath": "staticwebassets\\gantera.png"
     },
     {
+      "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\gym_1177719.png",
+      "PackagePath": "staticwebassets\\gym_1177719.png"
+    },
+    {
+      "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\home.png",
+      "PackagePath": "staticwebassets\\home.png"
+    },
+    {
+      "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\icons8-gym-100.png",
+      "PackagePath": "staticwebassets\\icons8-gym-100.png"
+    },
+    {
+      "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\icons8-gym-64.png",
+      "PackagePath": "staticwebassets\\icons8-gym-64.png"
+    },
+    {
       "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\styles.css",
       "PackagePath": "staticwebassets\\styles.css"
+    },
+    {
+      "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\user.png",
+      "PackagePath": "staticwebassets\\user.png"
+    },
+    {
+      "Id": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\weightlift_9483751.png",
+      "PackagePath": "staticwebassets\\weightlift_9483751.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.SmartWorkoutApp.Microsoft.AspNetCore.StaticWebAssets.props",

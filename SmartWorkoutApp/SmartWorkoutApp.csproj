@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Blazorise" Version="1.5.3" />
       <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
@@ -28,8 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Components\Pages\TrainerView\" />
-      <Folder Include="Components\Pages\UserView\" />
+      <Folder Include="Components\Pages\ClientView\" />
     </ItemGroup>
 
 </Project>

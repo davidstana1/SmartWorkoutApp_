@@ -14,4 +14,9 @@ public class User : Entity
     public int? Age { get; set; }
     public Trainer? Trainer { get; set; }
     public ICollection<Workout> Workouts { get; set; } = new List<Workout>();
+
+    public User()
+    {
+        Trainer = new Trainer();
+    }
 }

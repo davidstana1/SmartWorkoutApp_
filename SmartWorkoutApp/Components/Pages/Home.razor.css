@@ -51,14 +51,25 @@
 }
 
 .cool-welcome-text {
-    font-size: 4rem;
-    font-weight: bolder;
-    text-transform: uppercase;
-    color: #cc40ff;
-    margin-top: 2rem; /* Adăugăm un spațiu de sus adecvat */
-    letter-spacing: 0.1em;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke-width: 3px;
-    -webkit-text-stroke-color: white;
-    text-shadow: 4px 4px #c940ff, 10px 10px #000000;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif ;
+    text-align: center;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    letter-spacing: 0.5px;
+    line-height:2rem;
 }
+
+h1{
+    background-image: url(https://i.gifer.com/A7CA.gif);
+    background-size: cover;
+    color: transparent;
+    -webkit-background-clip: text;
+    text-transform: uppercase;
+    font-size: 90px;
+    margin: 10px 0;
+}
+

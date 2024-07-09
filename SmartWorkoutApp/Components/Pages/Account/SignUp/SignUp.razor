@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Authentication.Cookies
 @inject IGenericRepository<User> _userRepository
+@inject IGenericRepository<Trainer> _trainerRepository 
 @inject NavigationManager NavigationManager
 @inject ILogger<SignUp> Logger
 @rendermode InteractiveServer
@@ -54,13 +55,27 @@
                 </div>
                 <div class="input-box">
                     <span class="details">Role</span>
-                    <InputSelect @bind-Value="signUpModel.Role" required>
+                    <InputSelect @bind-Value="signUpModel.Role" @onchange="HandleRoleChange" required>
                         <option value="">Select Role</option>
                         <option value="Client">Client</option>
                         <option value="Trainer">Trainer</option>
                     </InputSelect>
                     <ValidationMessage For="@(() => signUpModel.Role)" />
                 </div>
+                @if (signUpModel.Role == "Client")
+                {
+                <div class="input-box">
+                    <span class="details">Trainer</span>
+                    <InputSelect @bind-Value="signUpModel.Trainer.Id" required>
+                        <option value="">Select Trainer</option>
+                        @foreach (var trainer in trainers)
+                        {
+                            <option value="@trainer.Id">@trainer.Name @trainer.Surname</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => signUpModel.Trainer.Id)" />
+                </div>
+                }
             </div>
             <div class="button">
                 <input type="submit" value="Register">
@@ -74,32 +89,64 @@
 
 @code {
 private SignUpModel signUpModel = new();
+private bool showTrainerDropdown = false;
+private List<Trainer> trainers = new List<Trainer>();
+
+protected override async Task OnInitializedAsync()
+{
+    trainers = await _trainerRepository.GetAll();
+}
+
+private void HandleRoleChange(ChangeEventArgs e)
+{
+    var selectedRole = e.Value.ToString();
+    showTrainerDropdown = selectedRole == "Client";
+    signUpModel.Role = selectedRole; // Ensure the model is updated
+}
 
 private async Task RegisterUser()
 {
-var user = await _userRepository.GetByEmail(signUpModel.Email);
-if (user is not null)
-{
-// Handle the error (e.g., show a message)
-return;
+    var user = await _userRepository.GetByEmail(signUpModel.Email);
+    if (user is not null)
+    {
+        // Handle the error (e.g., show a message)
+        return;
+    }
+
+    if (signUpModel.Role == "Trainer")
+    {
+        var newTrainer = new Trainer
+        {
+            Name = signUpModel.Name,
+            Surname = signUpModel.Surname,
+            Email = signUpModel.Email,
+            Password = signUpModel.Password,
+            Phone = signUpModel.Phone,
+            Weight = signUpModel.Weight,
+            Age = signUpModel.Age
+        };
+
+        await _trainerRepository.Add(newTrainer);
+    }
+    else
+    {
+        var trainer = await _trainerRepository.GetById(signUpModel.Trainer.Id);
+        var newUser = new User
+        {
+            Name = signUpModel.Name,
+            Surname = signUpModel.Surname,
+            Email = signUpModel.Email,
+            Password = signUpModel.Password,
+            Phone = signUpModel.Phone,
+            Weight = signUpModel.Weight,
+            Age = signUpModel.Age,
+            Role = Enum.Parse<RoleEnum>(signUpModel.Role, true),
+            Trainer = trainer 
+        };
+
+        await _userRepository.Add(newUser);
+    }
+
+    NavigationManager.NavigateTo("/Login", forceLoad: true);
 }
-
-var newUser = new User
-{
-Name = signUpModel.Name,
-Surname = signUpModel.Surname,
-Email = signUpModel.Email,
-Password = signUpModel.Password,
-Phone = signUpModel.Phone,
-Weight = signUpModel.Weight,
-Age = signUpModel.Age,
-Role = Enum.Parse<RoleEnum>(signUpModel.Role, true)
-};
-
-await _userRepository.Add(newUser);
-
-NavigationManager.NavigateTo("/Login", forceLoad: true);
-}
-
-
 }

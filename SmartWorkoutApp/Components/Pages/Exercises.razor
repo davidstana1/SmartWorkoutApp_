@@ -1,125 +1,243 @@
 ﻿@page "/Exercises"
+@using System.Security.Claims
 @using DataAccess.Entities
+@using DataAccess.Entities.BaseEntity
 @using DataAccess.Repository
 @using DataAccess.Repository.Exercises
 @using DataAccess.Repository.Workout
 @rendermode InteractiveServer
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link href="css/site.css" rel="stylesheet" />
+<link href="_content/Blazorise/blazorise.css" rel="stylesheet">
+<link href="_content/Blazorise/blazorise.bootstrap.min.css" rel="stylesheet">
+
 <h3>Exercises</h3>
 
 @if (workouts == null || exercises == null)
 {
-<p>
-    <em>Loading...</em>
-</p>
+    <p>
+        <em>Loading...</em>
+    </p>
 }
 else
 {
-@foreach (var workout in workouts)
-{
-<table class="table">
-    <thead>
-    <tr>
-        <th>@workout.User.Surname's workout</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
+    @foreach (var workout in workouts)
     {
-    <tr>
-        <td>@exercise.Name</td>
-        <td>
-            <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
-            <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
-        </td>
-    </tr>
-    }
-    </tbody>
-</table>
+        <table class="table animate__animated animate__fadeIn">
+            <thead>
+                <tr>
+                    <th>@workout.User.Surname's workout</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
+                {
+                    <tr class="animate__animated animate__fadeIn">
+                        <td>@exercise.Name</td>
+                        <td>
+                            <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
+                            <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<button @onclick="() => ToggleAddForm(workout.Id)" class="addButton">Add Exercise</button>
+        <button @onclick="() => ToggleAddForm(workout.Id)" class="addButton">Add Exercise</button>
 
-@if (showAddForm && currentWorkoutId == workout.Id)
+        @if (showAddForm && currentWorkoutId == workout.Id)
+        {
+            <form class="addForm animate__animated animate__fadeIn" method="post" @onsubmit="SubmitExercise">
+                <AntiforgeryToken />
+                <div>
+                    <label>Name:</label>
+                    <input class="input" @bind="newExercise.Name" />
+                </div>
+
+                <div>
+                    <label>Workout:</label>
+                    <select class="input" @bind="selectedWorkoutId">
+                        @foreach (var wk in workouts)
+                        {
+                            <option value="@wk.Id">@wk.User.Surname's workout</option>
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="submitButton">Submit</button>
+            </form>
+        }
+
+       @if (showEditForm && currentExercise != null)
 {
-<form method="post" @onsubmit="SubmitExercise">
-    <AntiforgeryToken />
-    <div>
-        <label>Name:</label>
-        <input class="input" @bind="newExercise.Name" />
-    </div>
+    <div class="modalBackground">
+        <div class="modalContainer">
+            <h4>Edit Exercise</h4>
+            <form @onsubmit="UpdateExercise">
+                <div>
+                    <label>Name:</label>
+                    <input class="input" @bind="currentExercise.Name" />
+                </div>
 
-    <div>
-        <label>Workout:</label>
-        <select class="input" @bind="selectedWorkoutId">
-            @foreach (var wk in workouts)
-            {
-            <option value="@wk.Id">@wk.User.Surname's workout</option>
-            }
-        </select>
-    </div>
+                <h5>Exercise Logs:</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Weight</th>
+                            <th>Sets</th>
+                            <th>Reps</th>
+                            <th>Duration</th>
+                            <th>Distance</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var log in currentExercise.ExerciseLogs)
+                        {
+                            <tr>
+                                <td><input class="input" @bind="log.Weight" /></td>
+                                <td><input class="input" @bind="log.Sets" /></td>
+                                <td><input class="input" @bind="log.Reps" /></td>
+                                <td><input class="input" @bind="log.Duration" /></td>
+                                <td><input class="input" @bind="log.Distance" /></td>
+                                <td><button type="button" class="deleteButton" @onclick="() => DeleteLog(log)">Delete</button></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td><input class="input" @bind="newLog.Weight" /></td>
+                            <td><input class="input" @bind="newLog.Sets" /></td>
+                            <td><input class="input" @bind="newLog.Reps" /></td>
+                            <td><input class="input" @bind="newLog.Duration" /></td>
+                            <td><input class="input" @bind="newLog.Distance" /></td>
+                            <td><button type="button" class="addButton" @onclick="AddLog">Add</button></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-    <button type="submit" class="submitButton">Submit</button>
-</form>
+                <button type="submit" class="submitButton">Save Changes</button>
+                <button type="button" class="cancelButton" @onclick="CancelEdit">Cancel</button>
+            </form>
+        </div>
+    </div>
 }
-}
+    }
 }
 
 @code {
-private List<Exercise> exercises;
-private List<Workout> workouts;
-private Exercise newExercise = new Exercise();
+    private List<Exercise> exercises;
+    private List<Workout> workouts;
+    private Exercise newExercise = new Exercise();
+    private Exercise currentExercise; // Exercise currently being edited
+    private ExerciseLog newLog = new ExerciseLog(); // New log to add
+    private Trainer loggedInTrainer;
 
-private bool showAddForm = false;
-private string currentWorkoutId = "";
-private string selectedWorkoutId = "";
+    private bool showAddForm = false;
+    private bool showEditForm = false;
+    private string currentWorkoutId = "";
+    private string selectedWorkoutId = "";
 
-[Inject] IGenericRepository<Exercise> _exerciseRepository { get; set; }
-[Inject] IGenericRepository<Workout> _workoutRepository { get; set; }
+    [Inject] IGenericRepository<Exercise> _exerciseRepository { get; set; }
+    [Inject] IWorkoutRepository _workoutRepository { get; set; }
+    [Inject] private IGenericRepository<Trainer> _trainerRepository { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
-protected override async Task OnInitializedAsync()
-{
-workouts = await _workoutRepository.GetAllWithInclude(u => u.User);
-exercises = await _exerciseRepository.GetAll();
-}
+    protected override async Task OnInitializedAsync()
+    {
+        workouts = await _workoutRepository.GetAllWithInclude(u => u.User);
+        exercises = await _exerciseRepository.GetAll();
 
-private async Task SubmitExercise()
-{
-var workout = workouts.FirstOrDefault(w => w.Id == selectedWorkoutId);
-if (workout != null)
-{
-newExercise.Workout = workout;
-newExercise.Workout.Id = workout.Id;
-await _exerciseRepository.Add(newExercise);
-exercises = await _exerciseRepository.GetAll();
-newExercise = new Exercise();
-showAddForm = false;
-StateHasChanged();
-}
-}
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
 
-private void ToggleAddForm(string workoutId)
-{
-Console.WriteLine($"Toggleaddform with workoutid: {workoutId}");
-if (currentWorkoutId == workoutId && showAddForm)
-{
-showAddForm = false;
-}
-else
-{
-currentWorkoutId = workoutId;
-showAddForm = true;
-}
-selectedWorkoutId = workoutId;
-StateHasChanged();
-}
+        if (user.Identity.IsAuthenticated)
+        {
+            var email = user.FindFirst(ClaimTypes.Email)?.Value;
+            loggedInTrainer = await _trainerRepository.GetByEmailTrainer(email);
+            if (loggedInTrainer != null)
+            {
+                workouts = await _workoutRepository.GetAllForTrainer(loggedInTrainer.Id);
+                exercises = await _exerciseRepository.GetAll();
+            }
+        }
+    }
 
-private async Task DeleteExercise(Exercise exercise)
-{
-await _exerciseRepository.Delete(exercise);
-exercises.Remove(exercise);
-}
+    private async Task SubmitExercise()
+    {
+        var workout = workouts.FirstOrDefault(w => w.Id == selectedWorkoutId);
+        if (workout != null)
+        {
+            newExercise.Workout = workout;
+            newExercise.Workout.Id = workout.Id;
+            await _exerciseRepository.Add(newExercise);
+            exercises = await _exerciseRepository.GetAll();
+            newExercise = new Exercise();
+            showAddForm = false;
+            StateHasChanged();
+        }
+    }
 
-private void EditExercise(Exercise exercise)
-{
+    private void ToggleAddForm(string workoutId)
+    {
+        Console.WriteLine($"Toggleaddform with workoutid: {workoutId}");
+        if (currentWorkoutId == workoutId && showAddForm)
+        {
+            showAddForm = false;
+        }
+        else
+        {
+            currentWorkoutId = workoutId;
+            showAddForm = true;
+        }
+        selectedWorkoutId = workoutId;
+        StateHasChanged();
+    }
 
-}
+    private async Task DeleteExercise(Exercise exercise)
+    {
+        await _exerciseRepository.Delete(exercise);
+        exercises.Remove(exercise);
+    }
+
+    private void EditExercise(Exercise exercise)
+    {
+        currentExercise = exercise; // Set currentExercise to the exercise being edited
+        showEditForm = true; // Show the edit form
+    }
+
+    private async Task UpdateExercise()
+    {
+        await _exerciseRepository.Update(currentExercise); // Update exercise in repository
+        exercises = await _exerciseRepository.GetAll(); // Refresh exercises list
+        showEditForm = false; // Hide edit form
+        currentExercise = null; // Clear currentExercise
+    }
+
+    private void CancelEdit()
+    {
+        showEditForm = false; // Hide edit form
+        currentExercise = null; // Clear currentExercise
+    }
+
+    private void AddLog()
+    {
+        if (currentExercise.ExerciseLogs == null)
+        {
+            currentExercise.ExerciseLogs = new List<ExerciseLog>();
+        }
+        currentExercise.ExerciseLogs.Add(new ExerciseLog
+        {
+            Weight = newLog.Weight,
+            Sets = newLog.Sets,
+            Reps = newLog.Reps,
+            Duration = newLog.Duration,
+            Distance = newLog.Distance
+        });
+        newLog = new ExerciseLog(); // Clear newLog after adding
+    }
+
+    private void DeleteLog(ExerciseLog log)
+    {
+        currentExercise.ExerciseLogs.Remove(log);
+    }
 }

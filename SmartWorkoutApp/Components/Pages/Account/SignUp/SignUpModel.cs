@@ -1,4 +1,6 @@
-﻿namespace SmartWorkoutApp.Components.Pages.Account.SignUp;
+﻿using DataAccess.Entities;
+
+namespace SmartWorkoutApp.Components.Pages.Account.SignUp;
 
 public class SignUpModel
 {
@@ -10,4 +12,5 @@ public class SignUpModel
     public double? Weight { get; set; }
     public int? Age { get; set; }
     public string Role { get; set; }
+    public Trainer? Trainer { get; set; } = new Trainer();
 }

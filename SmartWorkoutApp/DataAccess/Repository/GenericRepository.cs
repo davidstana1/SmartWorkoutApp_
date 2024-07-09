@@ -72,4 +72,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         return await _appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
+    
+    public async Task<Trainer> GetByEmailTrainer(string email)
+    {
+        return await _appDbContext.Trainers.FirstOrDefaultAsync(u => u.Email == email);
+    }
 }

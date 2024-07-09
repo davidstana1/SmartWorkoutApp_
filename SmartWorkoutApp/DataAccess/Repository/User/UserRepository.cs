@@ -40,5 +40,11 @@ public class UserRepository : GenericRepository<User>, IUserRepository
         _appDbContext.SaveChanges();
     }
 
+    public async Task<List<User>> GetAllUsersForTrainer(string trainerId)
+    {
+        return await _appDbContext.Users
+            .Where(u => u.Trainer.Id == trainerId)
+            .ToListAsync();
+    }
 
 }

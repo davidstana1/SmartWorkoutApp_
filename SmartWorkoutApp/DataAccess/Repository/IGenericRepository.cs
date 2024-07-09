@@ -13,4 +13,5 @@ public interface IGenericRepository<T> where T : class
     Task Delete(T entity);
     Task Update(T entity);
     Task<User> GetByEmail(string email);
+    Task<Trainer> GetByEmailTrainer(string email);
 }

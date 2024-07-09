@@ -30,10 +30,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/david/OneDrive/Desktop/SmartWorkoutApp_/SmartWorkoutApp/Components/Pages/Workouts.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXb3Jrb3V0cy5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/david/OneDrive/Desktop/SmartWorkoutApp_/SmartWorkoutApp/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope = b-7ioknfex9i
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-piqrqqt469
 
+[C:/Users/david/OneDrive/Desktop/SmartWorkoutApp_/SmartWorkoutApp/Components/Pages/MyTrainingSessions.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNeVRyYWluaW5nU2Vzc2lvbnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hutc9m74w7
+
 [C:/Users/david/OneDrive/Desktop/SmartWorkoutApp_/SmartWorkoutApp/Components/Pages/TrainingSessions.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUcmFpbmluZ1Nlc3Npb25zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-tzcj3biwfx
@@ -77,3 +77,7 @@ build_metadata.AdditionalFiles.CssScope = b-tzcj3biwfx
 [C:/Users/david/OneDrive/Desktop/SmartWorkoutApp_/SmartWorkoutApp/Components/Pages/UserPage.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VyUGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-vgurfcm2i6
+
+[C:/Users/david/OneDrive/Desktop/SmartWorkoutApp_/SmartWorkoutApp/Components/Pages/Workouts.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXb3Jrb3V0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-3xhf0qbg24

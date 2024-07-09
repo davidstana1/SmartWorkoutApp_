@@ -76,6 +76,9 @@ namespace SmartWorkoutApp.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<int?>("Age")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
@@ -96,9 +99,12 @@ namespace SmartWorkoutApp.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<double?>("Weight")
+                        .HasColumnType("double precision");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Trainer");
+                    b.ToTable("Trainers");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.User", b =>

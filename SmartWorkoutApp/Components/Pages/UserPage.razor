@@ -1,8 +1,10 @@
 @page "/Users"
+@using System.Security.Claims
 @using DataAccess
 @using DataAccess.Entities
 @using DataAccess.Repository
 @using DataAccess.Repository.Users
+@using Microsoft.AspNetCore.Components.Authorization
 @rendermode InteractiveServer
 
 <PageTitle>Users</PageTitle>
@@ -10,6 +12,7 @@
 <h1 class="page-title">Users</h1>
 <link href="styles.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 @if (users == null)
 {
 <p>
@@ -26,6 +29,7 @@ else
         <th>Email</th>
         <th>Age</th>
         <th>Phone</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -66,10 +70,6 @@ else
                     <input class="input" @bind=newUser.Email type="email" required />
                 </div>
                 <div class="form-group">
-                    <label>Age:</label>
-                    <input class="input" @bind=newUser.Age type="number" min="1" required />
-                </div>
-                <div class="form-group">
                     <label>Phone:</label>
                     <input class="input" @bind=newUser.Phone required />
                 </div>
@@ -97,10 +97,6 @@ else
                     <div class="form-group">
                         <label>Email:</label>
                         <input class="input" @bind=selectedUser.Email type="email" required />
-                    </div>
-                    <div class="form-group">
-                        <label>Age:</label>
-                        <input class="input" @bind=selectedUser.Age type="number" min="1" required />
                     </div>
                     <div class="form-group">
                         <label>Phone:</label>
@@ -132,20 +128,39 @@ private User selectedUser;
 private bool showEditForm = false;
 private bool showDeleteConfirmation = false;
 private User userToDelete;
+private Trainer loggedInTrainer;
 
 [Inject] private IUserRepository _userRepository { get; set; }
+[Inject] private IGenericRepository<Trainer> _trainerRepository { get; set; }
+[Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
 protected override async Task OnInitializedAsync()
 {
-users = await _userRepository.GetAll();
+var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+var user = authState.User;
+if (user.Identity.IsAuthenticated)
+{
+var email = user.FindFirst(ClaimTypes.Email)?.Value;
+loggedInTrainer = await _trainerRepository.GetByEmailTrainer(email);
+}
+
+if (loggedInTrainer != null)
+{
+users = await _userRepository.GetAllUsersForTrainer(loggedInTrainer.Id);
+}
 }
 
 private async Task Submit()
 {
+if (loggedInTrainer != null)
+{
+newUser.Trainer = loggedInTrainer;
 var addedUser = await _userRepository.Add(newUser);
 users.Add(addedUser);
+
 newUser = new User();
 showAddForm = false;
+}
 }
 
 private async Task Delete(User user)
@@ -190,7 +205,7 @@ private async Task Update()
 await _userRepository.Update(selectedUser);
 selectedUser = null;
 showEditForm = false;
-users = await _userRepository.GetAll();
+users = await _userRepository.GetAllUsersForTrainer(loggedInTrainer.Id);
 }
 
 private void CancelAdd()

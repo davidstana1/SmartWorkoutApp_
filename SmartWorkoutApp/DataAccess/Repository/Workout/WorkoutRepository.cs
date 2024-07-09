@@ -37,4 +37,24 @@ public class WorkoutRepository : GenericRepository<Entities.Workout> , IWorkoutR
             await Delete(workout);
         }
     }
+    public async Task<List<Entities.Workout>> GetAllForTrainer(string trainerId)
+    {
+        return await _appDbContext.Workouts
+            .Include(w => w.User)
+            .Include(w => w.User.Trainer)
+            .Include(w => w.Exercises)
+            .ThenInclude(e => e.ExerciseLogs)
+            .Where(w => w.User.Trainer.Id == trainerId)
+            .ToListAsync();
+    }
+    
+    public async Task<List<Entities.Workout>> GetAllForUser(string userId)
+    {
+        return await _appDbContext.Workouts
+            .Include(w => w.User)
+            .Include(w=>w.Exercises)
+            .ThenInclude(e => e.ExerciseLogs)// Include pentru a aduce detalii despre utilizator
+            .Where(w => w.User.Id == userId)
+            .ToListAsync();
+    }
 }

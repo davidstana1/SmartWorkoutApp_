@@ -1,0 +1,132 @@
+﻿@page "/MyTrainingSessions"
+@using System.Security.Claims
+@using DataAccess.Entities
+@using DataAccess.Repository
+@using DataAccess.Repository.Workout
+@using DataAccess.Repository.Users
+@rendermode InteractiveServer
+
+<PageTitle>My Training Sessions</PageTitle>
+<link rel="stylesheet" href="styles.css">
+
+<h1 class="page-title">My Training Sessions</h1>
+
+@if (workouts == null)
+{
+<p>
+    <em>Loading...</em>
+</p>
+}
+else
+{
+<div class="workouts-container">
+    @foreach (var workout in workouts)
+    {
+    <div class="workout">
+        <h2>@workout.Name</h2>
+        <div class="workout-details">
+            <div class="details-row">
+                <strong>Day:</strong> @workout.Day
+            </div>
+            <div class="details-row">
+                <strong>Duration:</strong> @workout.Duration
+            </div>
+            <div class="details-row">
+                <strong>Exercises:</strong>
+                <ul class="exercise-list">
+                    @foreach (var exercise in workout.Exercises)
+                    {
+                    <li>
+                        <span>@exercise.Name</span>
+                        <button class="btn btn-primary" @onclick="() => ShowLogs(exercise)">See Logs</button>
+                    </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+@if (selectedExercise != null)
+{
+    <div class="modal fade show d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@selectedExercise.Name Logs</h5>
+                    <button type="button" class="close" @onclick="CloseLogs" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Weight</th>
+                            <th>Sets</th>
+                            <th>Reps</th>
+                            <th>Duration</th>
+                            <th>Distance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var log in selectedExercise.ExerciseLogs)
+                        {
+                            <tr>
+                                <td>@log.Weight</td>
+                                <td>@log.Sets</td>
+                                <td>@log.Reps</td>
+                                <td>@log.Duration</td>
+                                <td>@log.Distance</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-btn" @onclick="CloseLogs">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+}
+}
+
+@code {
+private List<Workout> workouts;
+private Exercise selectedExercise;
+private User loggedInUser;
+
+[Inject] private IWorkoutRepository _workoutRepository { get; set; }
+[Inject] private IUserRepository _userRepository { get; set; }
+[Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+protected override async Task OnInitializedAsync()
+{
+var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+var user = authState.User;
+
+if (user.Identity.IsAuthenticated)
+{
+var email = user.FindFirst(ClaimTypes.Email)?.Value;
+
+loggedInUser = await _userRepository.GetByEmail(email);
+if (loggedInUser != null)
+{
+workouts = await _workoutRepository.GetAllForUser(loggedInUser.Id.ToString());
+}
+}
+}
+
+private void ShowLogs(Exercise exercise)
+{
+selectedExercise = exercise;
+}
+
+private void CloseLogs()
+{
+selectedExercise = null;
+}
+}
