@@ -4,6 +4,7 @@
 @using DataAccess.Repository
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Authentication.Cookies
+@using SmartWorkoutApp.Services.PasswordHashing
 @inject IGenericRepository<User> _userRepository
 @inject IGenericRepository<Trainer> _trainerRepository 
 @inject NavigationManager NavigationManager
@@ -109,11 +110,14 @@ private void HandleRoleChange(ChangeEventArgs e)
 private async Task RegisterUser()
 {
     var user = await _userRepository.GetByEmail(signUpModel.Email);
-    if (user is not null)
+    if (user != null)
     {
-        // Handle the error (e.g., show a message)
+        // Handle duplicate user error
         return;
     }
+
+    string salt = PasswordHasher.GenerateSalt();
+    string hashedPassword = PasswordHasher.HashPassword(signUpModel.Password, salt);
 
     if (signUpModel.Role == "Trainer")
     {
@@ -122,7 +126,8 @@ private async Task RegisterUser()
             Name = signUpModel.Name,
             Surname = signUpModel.Surname,
             Email = signUpModel.Email,
-            Password = signUpModel.Password,
+            Password = hashedPassword,
+            Salt = salt,
             Phone = signUpModel.Phone,
             Weight = signUpModel.Weight,
             Age = signUpModel.Age
@@ -138,7 +143,8 @@ private async Task RegisterUser()
             Name = signUpModel.Name,
             Surname = signUpModel.Surname,
             Email = signUpModel.Email,
-            Password = signUpModel.Password,
+            Password = hashedPassword,
+            Salt = salt,
             Phone = signUpModel.Phone,
             Weight = signUpModel.Weight,
             Age = signUpModel.Age,
@@ -151,6 +157,7 @@ private async Task RegisterUser()
 
     NavigationManager.NavigateTo("/Login", forceLoad: true);
 }
+
 private async Task LogoutUser()
 {
     var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();

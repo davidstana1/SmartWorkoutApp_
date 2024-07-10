@@ -1,8 +1,66 @@
-﻿.workouts-container {
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    margin: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.page-title {
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px;
+    animation: slideInFromLeft 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.workouts-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    margin-bottom: 40px;
 }
 
 .workout {
@@ -54,28 +112,10 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/*
-.modal {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: 80%;
-    max-width: 600px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: fadeIn 0.3s ease-out forwards;
-    z-index: 1050;
-    opacity: 0;
-    display: none;
-}
-*/
-
 .modal-content {
     max-height: 70vh;
     overflow-y: auto;
+    border-radius: 25px;
 }
 
 .modal.show {
@@ -90,19 +130,17 @@
     margin-bottom: 10px;
 }
 
-.modal-header h3 {
+.modal-header h5 {
     margin: 0;
 }
 
 .close-btn {
     background: none;
     border: none;
-    font-size: 1rem;
-    width: 70px;
-    height: 40px;
+    font-size: 1.5rem;
     cursor: pointer;
     padding: 0;
-    background-color: red;  
+    margin-left: 20px;
 }
 
 .modal-backdrop {
@@ -130,17 +168,6 @@
 .modal-footer {
     display: flex;
     justify-content: flex-end;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
 }
 
 @keyframes fadeInBackdrop {

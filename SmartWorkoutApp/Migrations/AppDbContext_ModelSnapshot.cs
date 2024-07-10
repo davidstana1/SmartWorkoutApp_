@@ -79,7 +79,16 @@ namespace SmartWorkoutApp.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("integer");
 
+                    b.Property<string>("CNP")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Cetatenie")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Judet")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -94,6 +103,13 @@ namespace SmartWorkoutApp.Migrations
 
                     b.Property<int>("Role")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Sex")
+                        .HasColumnType("text");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -115,7 +131,16 @@ namespace SmartWorkoutApp.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("integer");
 
+                    b.Property<string>("CNP")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Cetatenie")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Judet")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -130,6 +155,13 @@ namespace SmartWorkoutApp.Migrations
 
                     b.Property<int>("Role")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Sex")
+                        .HasColumnType("text");
 
                     b.Property<string>("Surname")
                         .IsRequired()

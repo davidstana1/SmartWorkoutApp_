@@ -9,214 +9,215 @@
 
 <PageTitle>Users</PageTitle>
 
-<h1 class="page-title">Users</h1>
 <link href="styles.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-@if (users == null)
-{
-<p>
-    <em>Loading...</em>
-</p>
-}
-else
-{
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Age</th>
-        <th>Phone</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var user in users)
+<div class="container">
+    <div class="title">Users</div>
+
+    @if (users == null)
     {
-    <tr>
-        <td>@user.Name</td>
-        <td>@user.Surname</td>
-        <td>@user.Email</td>
-        <td>@user.Age</td>
-        <td>@user.Phone</td>
-        <td>
-            <button class="deleteButton" @onclick="() => Delete(user)">Delete</button>
-            <button class="updateButton" @onclick="() => Edit(user)">Update</button>
-        </td>
-    </tr>
+        <p><em>Loading...</em></p>
     }
-    </tbody>
-</table>
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in users)
+                {
+                    <tr>
+                        <td>@user.Name</td>
+                        <td>@user.Surname</td>
+                        <td>@user.Email</td>
+                        <td>@user.Age</td>
+                        <td>@user.Phone</td>
+                        <td>
+                            <button class="deleteButton" @onclick="() => Delete(user)"><i class="fas fa-trash-alt"></i></button>
+                            <button class="updateButton" @onclick="() => Edit(user)"><i class="fas fa-edit"></i></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<button @onclick="ToggleAddForm" class="addButton"><i class="fas fa-user-plus"></i> Add User</button>
+        <button @onclick="ToggleAddForm" class="addButton"><i class="fas fa-user-plus"></i> Add User</button>
 
-<div class="popup @(showAddForm ? "show" : "")">
-        <span class="popuptext" id="addUserPopup">
-            <form method="post" @onsubmit="Submit">
-                <AntiforgeryToken />
-
-                <div class="form-group">
-                    <label>Name:</label>
-                    <input class="input" @bind=newUser.Name required />
-                </div>
-                <div class="form-group">
-                    <label>Surname:</label>
-                    <input class="input" @bind=newUser.Surname required />
-                </div>
-                <div class="form-group">
-                    <label>Email:</label>
-                    <input class="input" @bind=newUser.Email type="email" required />
-                </div>
-                <div class="form-group">
-                    <label>Phone:</label>
-                    <input class="input" @bind=newUser.Phone required />
-                </div>
-                <button type="submit" class="submitButton"><i class="fas fa-check"></i> Submit</button>
-                <button type="button" class="cancelButton" @onclick="CancelAdd"><i class="fas fa-times"></i> Cancel</button>
-            </form>
-        </span>
-</div>
-
-@if (showEditForm)
-{
-<div class="popup show">
-            <span class="popuptext" id="editUserPopup">
-                <form method="post" @onsubmit="Update">
+        <div class="popup @(showAddForm ? "show" : "")">
+            <span class="popuptext" id="addUserPopup">
+                <form method="post" @onsubmit="Submit">
                     <AntiforgeryToken />
 
                     <div class="form-group">
                         <label>Name:</label>
-                        <input class="input" @bind=selectedUser.Name required />
+                        <input class="input" @bind=newUser.Name required />
                     </div>
                     <div class="form-group">
                         <label>Surname:</label>
-                        <input class="input" @bind=selectedUser.Surname required />
+                        <input class="input" @bind=newUser.Surname required />
                     </div>
                     <div class="form-group">
                         <label>Email:</label>
-                        <input class="input" @bind=selectedUser.Email type="email" required />
+                        <input class="input" @bind=newUser.Email type="email" required />
                     </div>
                     <div class="form-group">
                         <label>Phone:</label>
-                        <input class="input" @bind=selectedUser.Phone required />
+                        <input class="input" @bind=newUser.Phone required />
                     </div>
-                    <button type="submit" class="submitButton"><i class="fas fa-sync"></i> Update</button>
-                    <button type="button" class="cancelButton" @onclick="CancelUpdate"><i class="fas fa-times"></i> Cancel</button>
+                    <button type="submit" class="submitButton"><i class="fas fa-check"></i> Submit</button>
+                    <button type="button" class="cancelButton" @onclick="CancelAdd"><i class="fas fa-times"></i> Cancel</button>
                 </form>
             </span>
+        </div>
+
+        @if (showEditForm)
+        {
+            <div class="popup show">
+                <span class="popuptext" id="editUserPopup">
+                    <form method="post" @onsubmit="Update">
+                        <AntiforgeryToken />
+
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input class="input" @bind=selectedUser.Name required />
+                        </div>
+                        <div class="form-group">
+                            <label>Surname:</label>
+                            <input class="input" @bind=selectedUser.Surname required />
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input class="input" @bind=selectedUser.Email type="email" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Phone:</label>
+                            <input class="input" @bind=selectedUser.Phone required />
+                        </div>
+                        <button type="submit" class="submitButton"><i class="fas fa-sync"></i> Update</button>
+                        <button type="button" class="cancelButton" @onclick="CancelUpdate"><i class="fas fa-times"></i> Cancel</button>
+                    </form>
+                </span>
+            </div>
+        }
+        @if (showDeleteConfirmation)
+        {
+            <div class="popup show">
+                <span class="popuptext" id="deleteUserPopup">
+                    <p>Are you sure you want to delete @userToDelete.Surname?</p>
+                    <button type="button" class="submitButton" @onclick="DeleteConfirmed"><i class="fas fa-check"></i> Yes</button>
+                    <button type="button" class="cancelButton" @onclick="CancelDelete"><i class="fas fa-times"></i> No</button>
+                </span>
+            </div>
+        }
+    }
 </div>
-}
-@if (showDeleteConfirmation)
-{
-<div class="popup show">
-            <span class="popuptext" id="deleteUserPopup">
-                <p>Are you sure you want to delete @userToDelete.Surname?</p>
-                <button type="button" class="submitButton" @onclick="DeleteConfirmed"><i class="fas fa-check"></i> Yes</button>
-                <button type="button" class="cancelButton" @onclick="CancelDelete"><i class="fas fa-times"></i> No</button>
-            </span>
-</div>
-}
-}
 
 @code {
-private List<User> users;
-private User newUser = new User();
-private bool showAddForm = false;
-private User selectedUser;
-private bool showEditForm = false;
-private bool showDeleteConfirmation = false;
-private User userToDelete;
-private Trainer loggedInTrainer;
+    private List<User> users;
+    private User newUser = new User();
+    private bool showAddForm = false;
+    private User selectedUser;
+    private bool showEditForm = false;
+    private bool showDeleteConfirmation = false;
+    private User userToDelete;
+    private Trainer loggedInTrainer;
 
-[Inject] private IUserRepository _userRepository { get; set; }
-[Inject] private IGenericRepository<Trainer> _trainerRepository { get; set; }
-[Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    [Inject] private IUserRepository _userRepository { get; set; }
+    [Inject] private IGenericRepository<Trainer> _trainerRepository { get; set; }
+    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
-protected override async Task OnInitializedAsync()
-{
-var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-var user = authState.User;
-if (user.Identity.IsAuthenticated)
-{
-var email = user.FindFirst(ClaimTypes.Email)?.Value;
-loggedInTrainer = await _trainerRepository.GetByEmailTrainer(email);
-}
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            var email = user.FindFirst(ClaimTypes.Email)?.Value;
+            loggedInTrainer = await _trainerRepository.GetByEmailTrainer(email);
+        }
 
-if (loggedInTrainer != null)
-{
-users = await _userRepository.GetAllUsersForTrainer(loggedInTrainer.Id);
-}
-}
+        if (loggedInTrainer != null)
+        {
+            users = await _userRepository.GetAllUsersForTrainer(loggedInTrainer.Id);
+        }
+    }
 
-private async Task Submit()
-{
-if (loggedInTrainer != null)
-{
-newUser.Trainer = loggedInTrainer;
-var addedUser = await _userRepository.Add(newUser);
-users.Add(addedUser);
+    private async Task Submit()
+    {
+        if (loggedInTrainer != null)
+        {
+            newUser.Trainer = loggedInTrainer;
+            var addedUser = await _userRepository.Add(newUser);
+            users.Add(addedUser);
 
-newUser = new User();
-showAddForm = false;
-}
-}
+            newUser = new User();
+            showAddForm = false;
+        }
+    }
 
-private async Task Delete(User user)
-{
-userToDelete = user;
-showDeleteConfirmation = true;
-}
+    private async Task Delete(User user)
+    {
+        userToDelete = user;
+        showDeleteConfirmation = true;
+    }
 
-private void DeleteConfirmed()
-{
-_userRepository.DeleteUser(userToDelete);
-users.Remove(userToDelete);
+    private void DeleteConfirmed()
+    {
+        _userRepository.DeleteUser(userToDelete);
+        users.Remove(userToDelete);
 
-userToDelete = null;
-showDeleteConfirmation = false;
-}
+        userToDelete = null;
+        showDeleteConfirmation = false;
+    }
 
-private void CancelDelete()
-{
-userToDelete = null;
-showDeleteConfirmation = false;
-}
+    private void CancelDelete()
+    {
+        userToDelete = null;
+        showDeleteConfirmation = false;
+    }
 
-private void ToggleAddForm()
-{
-showAddForm = !showAddForm;
-if (showAddForm)
-{
-newUser = new User();
-}
-}
+    private void ToggleAddForm()
+    {
+        showAddForm = !showAddForm;
+        if (showAddForm)
+        {
+            newUser = new User();
+        }
+    }
 
-private void Edit(User user)
-{
-selectedUser = user;
-showEditForm = true;
-showAddForm = false;
-}
+    private void Edit(User user)
+    {
+        selectedUser = user;
+        showEditForm = true;
+        showAddForm = false;
+    }
 
-private async Task Update()
-{
-await _userRepository.Update(selectedUser);
-selectedUser = null;
-showEditForm = false;
-users = await _userRepository.GetAllUsersForTrainer(loggedInTrainer.Id);
-}
+    private async Task Update()
+    {
+        await _userRepository.Update(selectedUser);
+        selectedUser = null;
+        showEditForm = false;
+        users = await _userRepository.GetAllUsersForTrainer(loggedInTrainer.Id);
+    }
 
-private void CancelAdd()
-{
-showAddForm = false;
-newUser = new User();
-}
+    private void CancelAdd()
+    {
+        showAddForm = false;
+        newUser = new User();
+    }
 
-private void CancelUpdate()
-{
-selectedUser = null;
-showEditForm = false;
-}
+    private void CancelUpdate()
+    {
+        selectedUser = null;
+        showEditForm = false;
+    }
 }

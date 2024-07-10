@@ -4,6 +4,7 @@
 @using DataAccess.Repository
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Authentication.Cookies
+@using SmartWorkoutApp.Services.PasswordHashing
 @inject IGenericRepository<User> _userRepository
 @inject IGenericRepository<Trainer> _trainerRepository
 @inject NavigationManager NavigationManager
@@ -59,34 +60,40 @@
     private string token;
 
     private async Task Authenticate()
+{
+    var user = await _userRepository.GetBy(u => u.Email == loginModel.Email);
+    var trainer = await _trainerRepository.GetBy(t => t.Email == loginModel.Email);
+
+    if ((user == null && trainer == null) || (!VerifyPassword(loginModel.Password, user?.Password, user?.Salt) && !VerifyPassword(loginModel.Password, trainer?.Password, trainer?.Salt)))
     {
-        var user = await _userRepository.GetBy(u => u.Email == loginModel.Email);
-        var trainer = await _trainerRepository.GetBy(t => t.Email == loginModel.Email);
-
-        if ((user is null || loginModel.Password != user.Password) && (trainer is null || loginModel.Password != trainer.Password))
-        {
-            errorMessage = "Invalid Email or Password";
-            return;
-        }
-
-        List<Claim> claims = new List<Claim>();
-
-        if (user != null && loginModel.Password == user.Password)
-        {
-            claims.Add(new Claim(ClaimTypes.Email, loginModel.Email));
-            claims.Add(new Claim(ClaimTypes.Role, user.Role.ToString()));
-        }
-        else if (trainer != null && loginModel.Password == trainer.Password)
-        {
-            claims.Add(new Claim(ClaimTypes.Email, loginModel.Email));
-            claims.Add(new Claim(ClaimTypes.Role, trainer.Role.ToString()));
-        }
-
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        var principal = new ClaimsPrincipal(identity);
-        await HttpContext.SignInAsync(principal);
-
-        NavigationManager.NavigateTo("/", forceLoad: true);
+        errorMessage = "Invalid Email or Password";
+        return;
     }
+
+    List<Claim> claims = new List<Claim>();
+
+    if (user != null && VerifyPassword(loginModel.Password, user.Password, user.Salt))
+    {
+        claims.Add(new Claim(ClaimTypes.Email, loginModel.Email));
+        claims.Add(new Claim(ClaimTypes.Role, user.Role.ToString()));
+    }
+    else if (trainer != null && VerifyPassword(loginModel.Password, trainer.Password, trainer.Salt))
+    {
+        claims.Add(new Claim(ClaimTypes.Email, loginModel.Email));
+        claims.Add(new Claim(ClaimTypes.Role, trainer.Role.ToString()));
+    }
+
+    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+    var principal = new ClaimsPrincipal(identity);
+    await HttpContext.SignInAsync(principal);
+
+    NavigationManager.NavigateTo("/", forceLoad: true);
+}
+
+private bool VerifyPassword(string enteredPassword, string storedHash, string salt)
+{
+    string hashedPassword = PasswordHasher.HashPassword(enteredPassword, salt);
+    return storedHash == hashedPassword;
+}
 
 }

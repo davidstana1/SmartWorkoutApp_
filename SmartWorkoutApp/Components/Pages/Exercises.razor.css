@@ -1,5 +1,24 @@
-﻿/* site.css */
+﻿/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
+/* Animatie de fadeInUp */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stiluri generale pentru tabele */
 .table {
     width: 100%;
     margin-bottom: 1rem;
@@ -9,12 +28,18 @@
     overflow: hidden;
 }
 
+th{
+    border-bottom: 1px solid;
+    width: 100%;
+}
+
 .table th, .table td {
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* Stiluri pentru butoane */
 .addButton, .deleteButton, .updateButton {
     background-color: #007bff;
     color: #fff;
@@ -25,20 +50,42 @@
     margin-right: 0.5rem;
 }
 
-.addButton{
-    margin-bottom: 25px;
+.deleteButton{
+    background-color: rgba(255,0,0,0.7);
+}
+
+.updateButton{
+    background-color: forestgreen;
 }
 
 .addButton:hover, .deleteButton:hover, .updateButton:hover {
     background-color: #0056b3;
 }
 
+.deleteButton:hover{
+    background-color: rgba(255,0,0,1);
+}
+
+.updateButton:hover{
+    background-color: darkgreen;
+}
+
+/* Stiluri pentru formularul de adăugare */
 .addForm {
     margin-top: 1rem;
     padding: 1rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.25rem;
     background-color: #f8f9fa;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 .submitButton {
@@ -54,8 +101,7 @@
     background-color: #218838;
 }
 
-/* site.css */
-
+/* Stiluri pentru modalul de editare */
 .modalBackground {
     position: fixed;
     top: 0;
@@ -102,10 +148,6 @@
     text-align: center;
 }
 
-.modalContainer table th {
-    background-color: #f2f2f2;
-}
-
 .modalContainer table td input {
     width: 100%;
     padding: 0.25rem;
@@ -127,6 +169,12 @@
     background-color: #c82333;
 }
 
+.container-buttons{
+    display:flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
 .modalContainer .submitButton,
 .modalContainer .cancelButton {
     background-color: #007bff;
@@ -142,16 +190,4 @@
 .modalContainer .submitButton:hover,
 .modalContainer .cancelButton:hover {
     background-color: #0056b3;
-}
-
-/* Animatie de intrare fadeInUp */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }

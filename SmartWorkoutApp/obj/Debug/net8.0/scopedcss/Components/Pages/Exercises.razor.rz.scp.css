@@ -1,5 +1,24 @@
-/* site.css */
+/* Reset CSS */
+*[b-7ioknfex9i] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
+/* Animatie de fadeInUp */
+@keyframes fadeInUp-b-7ioknfex9i {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stiluri generale pentru tabele */
 .table[b-7ioknfex9i] {
     width: 100%;
     margin-bottom: 1rem;
@@ -9,12 +28,18 @@
     overflow: hidden;
 }
 
+th[b-7ioknfex9i]{
+    border-bottom: 1px solid;
+    width: 100%;
+}
+
 .table th[b-7ioknfex9i], .table td[b-7ioknfex9i] {
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* Stiluri pentru butoane */
 .addButton[b-7ioknfex9i], .deleteButton[b-7ioknfex9i], .updateButton[b-7ioknfex9i] {
     background-color: #007bff;
     color: #fff;
@@ -25,20 +50,42 @@
     margin-right: 0.5rem;
 }
 
-.addButton[b-7ioknfex9i]{
-    margin-bottom: 25px;
+.deleteButton[b-7ioknfex9i]{
+    background-color: rgba(255,0,0,0.7);
+}
+
+.updateButton[b-7ioknfex9i]{
+    background-color: forestgreen;
 }
 
 .addButton:hover[b-7ioknfex9i], .deleteButton:hover[b-7ioknfex9i], .updateButton:hover[b-7ioknfex9i] {
     background-color: #0056b3;
 }
 
+.deleteButton:hover[b-7ioknfex9i]{
+    background-color: rgba(255,0,0,1);
+}
+
+.updateButton:hover[b-7ioknfex9i]{
+    background-color: darkgreen;
+}
+
+/* Stiluri pentru formularul de adăugare */
 .addForm[b-7ioknfex9i] {
     margin-top: 1rem;
     padding: 1rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.25rem;
     background-color: #f8f9fa;
+    animation: fadeInUp-b-7ioknfex9i 0.3s ease-out;
+}
+
+.input[b-7ioknfex9i] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 
 .submitButton[b-7ioknfex9i] {
@@ -54,8 +101,7 @@
     background-color: #218838;
 }
 
-/* site.css */
-
+/* Stiluri pentru modalul de editare */
 .modalBackground[b-7ioknfex9i] {
     position: fixed;
     top: 0;
@@ -102,10 +148,6 @@
     text-align: center;
 }
 
-.modalContainer table th[b-7ioknfex9i] {
-    background-color: #f2f2f2;
-}
-
 .modalContainer table td input[b-7ioknfex9i] {
     width: 100%;
     padding: 0.25rem;
@@ -127,6 +169,12 @@
     background-color: #c82333;
 }
 
+.container-buttons[b-7ioknfex9i]{
+    display:flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
 .modalContainer .submitButton[b-7ioknfex9i],
 .modalContainer .cancelButton[b-7ioknfex9i] {
     background-color: #007bff;
@@ -142,16 +190,4 @@
 .modalContainer .submitButton:hover[b-7ioknfex9i],
 .modalContainer .cancelButton:hover[b-7ioknfex9i] {
     background-color: #0056b3;
-}
-
-/* Animatie de intrare fadeInUp */
-@keyframes fadeInUp-b-7ioknfex9i {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }

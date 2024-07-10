@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bvCdTgogNq/2QJzDM+OUIJjs6aqwuK9n+qmeNl3SpG0=",
+  "Hash": "HA3XeB+STBQmHB08w/Qd21uHTzu+ZD2zHmIb4Guv1wQ=",
   "Source": "SmartWorkoutApp",
   "BasePath": "_content/SmartWorkoutApp",
   "Mode": "Default",
@@ -739,6 +739,25 @@
       "OriginalItemSpec": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SmartWorkoutApp.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\add-user.png",
+      "SourceId": "SmartWorkoutApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
+      "BasePath": "_content/SmartWorkoutApp",
+      "RelativePath": "add-user.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\add-user.png"
+    },
+    {
       "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\app.css",
       "SourceId": "SmartWorkoutApp",
       "SourceType": "Discovered",
@@ -758,12 +777,12 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\barbell3.png",
+      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\barbell.png",
       "SourceId": "SmartWorkoutApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
       "BasePath": "_content/SmartWorkoutApp",
-      "RelativePath": "barbell3.png",
+      "RelativePath": "barbell.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -774,7 +793,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\barbell3.png"
+      "OriginalItemSpec": "wwwroot\\barbell.png"
     },
     {
       "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\bootstrap\\bootstrap.min.css",
@@ -815,12 +834,12 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\dumbbell_726781.png",
+      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\calendar.png",
       "SourceId": "SmartWorkoutApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
       "BasePath": "_content/SmartWorkoutApp",
-      "RelativePath": "dumbbell_726781.png",
+      "RelativePath": "calendar.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -831,7 +850,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\dumbbell_726781.png"
+      "OriginalItemSpec": "wwwroot\\calendar.png"
     },
     {
       "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\favicon.png",
@@ -872,12 +891,12 @@
       "OriginalItemSpec": "wwwroot\\gantera.png"
     },
     {
-      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\gym_1177719.png",
+      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\gym.png",
       "SourceId": "SmartWorkoutApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
       "BasePath": "_content/SmartWorkoutApp",
-      "RelativePath": "gym_1177719.png",
+      "RelativePath": "gym.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -888,7 +907,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\gym_1177719.png"
+      "OriginalItemSpec": "wwwroot\\gym.png"
     },
     {
       "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\home.png",
@@ -910,25 +929,6 @@
       "OriginalItemSpec": "wwwroot\\home.png"
     },
     {
-      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\icons8-gym-100.png",
-      "SourceId": "SmartWorkoutApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
-      "BasePath": "_content/SmartWorkoutApp",
-      "RelativePath": "icons8-gym-100.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\icons8-gym-100.png"
-    },
-    {
       "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\icons8-gym-64.png",
       "SourceId": "SmartWorkoutApp",
       "SourceType": "Discovered",
@@ -948,6 +948,25 @@
       "OriginalItemSpec": "wwwroot\\icons8-gym-64.png"
     },
     {
+      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\program.png",
+      "SourceId": "SmartWorkoutApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
+      "BasePath": "_content/SmartWorkoutApp",
+      "RelativePath": "program.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\program.png"
+    },
+    {
       "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\styles.css",
       "SourceId": "SmartWorkoutApp",
       "SourceType": "Discovered",
@@ -965,6 +984,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\styles.css"
+    },
+    {
+      "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\trainer.png",
+      "SourceId": "SmartWorkoutApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\",
+      "BasePath": "_content/SmartWorkoutApp",
+      "RelativePath": "trainer.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\trainer.png"
     },
     {
       "Identity": "C:\\Users\\david\\OneDrive\\Desktop\\SmartWorkoutApp_\\SmartWorkoutApp\\wwwroot\\user.png",

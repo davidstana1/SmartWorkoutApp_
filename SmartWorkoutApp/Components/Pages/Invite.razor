@@ -10,79 +10,82 @@
 @rendermode InteractiveServer
 
 <div class="container invite-container">
-    <h3 class="text-center">Invite</h3>
-
+    <div class="title">Invite</div>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <div class="invite-form">
-        <div class="mb-3">
-            <label for="emailToInvite" class="form-label">Email to invite:</label>
+        <div class="input-box">
+            <span class="details">Email to invite:</span>
             <input type="email" id="emailToInvite" class="form-control" @bind="emailToInvite" />
         </div>
 
-        <button class="btn btn-primary" @onclick="SendInvitation">Send Invitation</button>
+        <div class="button">
+            <button class="btn btn-primary" @onclick="SendInvitation">Send Invitation</button>
+        </div>
 
         @if (invitationSent)
         {
-            <p class="invite-message success-message">Invitation sent successfully!</p>
+        <p class="invite-message success-message">Invitation sent successfully!</p>
         }
         else if (errorSending)
         {
-            <p class="invite-message error-message">Error sending invitation. Please try again later.</p>
+        <p class="invite-message error-message">Error sending invitation. Please try again later.</p>
         }
     </div>
 </div>
 
 @code {
-    private string emailToInvite;
-    private bool invitationSent = false;
-    private bool errorSending = false;
-    private Trainer loggedInTrainer;
+private string emailToInvite;
+private bool invitationSent = false;
+private bool errorSending = false;
+private Trainer loggedInTrainer;
 
-    private async Task SendInvitation()
-    {
-        Console.WriteLine("SendInvitation method called.");
+private async Task SendInvitation()
+{
+Console.WriteLine("SendInvitation method called.");
 
-        try
-        {
-            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var user = authState.User;
+try
+{
+var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+var user = authState.User;
 
-            if (user.Identity.IsAuthenticated)
-            {
-                var trainerEmail = user.FindFirst(ClaimTypes.Email)?.Value;
-                Console.WriteLine($"Authenticated user email: {trainerEmail}");
+if (user.Identity.IsAuthenticated)
+{
+var trainerEmail = user.FindFirst(ClaimTypes.Email)?.Value;
+Console.WriteLine($"Authenticated user email: {trainerEmail}");
 
-                loggedInTrainer = await _trainerRepository.GetByEmailTrainer(trainerEmail);
-                Console.WriteLine($"Email to invite: {emailToInvite}");
-                Console.WriteLine($"Logged in trainer email: {trainerEmail}");
+loggedInTrainer = await _trainerRepository.GetByEmailTrainer(trainerEmail);
+Console.WriteLine($"Email to invite: {emailToInvite}");
+Console.WriteLine($"Logged in trainer email: {trainerEmail}");
 
-                if (loggedInTrainer != null)
-                {
-                    var invitationLink = "http://localhost:5000/SignUp"; // Adjust this link to your environment
+if (loggedInTrainer != null)
+{
+var invitationLink = "http://localhost:5000/SignUp"; // Adjust this link to your environment
 
-                    Console.WriteLine($"Sending invitation to: {emailToInvite}");
-                    Console.WriteLine($"Invitation link: {invitationLink}");
+Console.WriteLine($"Sending invitation to: {emailToInvite}");
+Console.WriteLine($"Invitation link: {invitationLink}");
 
-                    await _emailService.SendInvitationAsync(emailToInvite, invitationLink, loggedInTrainer, trainerEmail);
+await _emailService.SendInvitationAsync(emailToInvite, invitationLink, loggedInTrainer, trainerEmail);
 
-                    invitationSent = true;
-                    errorSending = false;
-                }
-                else
-                {
-                    Console.WriteLine("Trainer not found.");
-                    errorSending = true;
-                }
-            }
-            else
-            {
-                Console.WriteLine("User is not authenticated.");
-                errorSending = true;
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error sending invitation: {ex.Message}");
-            errorSending = true;
-        }
-    }
+invitationSent = true;
+errorSending = false;
+}
+else
+{
+Console.WriteLine("Trainer not found.");
+errorSending = true;
+}
+}
+else
+{
+Console.WriteLine("User is not authenticated.");
+errorSending = true;
+}
+}
+catch (Exception ex)
+{
+Console.WriteLine($"Error sending invitation: {ex.Message}");
+errorSending = true;
+}
+}
 }

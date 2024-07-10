@@ -39,11 +39,27 @@
 }
 
 .bi-plus-square-fill-nav-menu {
-   background-image: url("icons8-gym-64.png");
+   background-image: url("barbell.png");
+}
+
+.exercises{
+    background-image: url("program.png");
+}
+
+.profile{
+    background-image: url("trainer.png");
+}
+
+.invite{
+    background-image: url("add-user.png");
+}
+
+.session{
+    background-image: url("calendar.png");
 }
 
 .bi-list-nested-nav-menu {
-    background-image: url("user.png");
+    background-image: url("gym.png");
 }
 
 .nav-item {

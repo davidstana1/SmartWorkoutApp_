@@ -2,6 +2,7 @@
 @using System.Security.Claims
 @using DataAccess.Entities
 @using DataAccess.Repository
+@using DataAccess.Repository.Exercises
 @using DataAccess.Repository.Workout
 @using DataAccess.Repository.Users
 @rendermode InteractiveServer
@@ -22,7 +23,7 @@ else
 <div class="workouts-container">
     @foreach (var userGroup in workouts.GroupBy(w => w.User))
     {
-        <h2>@userGroup.Key.Name @userGroup.Key.Surname's Training Sessions</h2>
+    <h2>@userGroup.Key.Name @userGroup.Key.Surname's Training Sessions</h2>
     <div class="user-workouts">
         @foreach (var workout in userGroup)
         {
@@ -33,7 +34,7 @@ else
                     <strong>Day:</strong> @workout.Day
                 </div>
                 <div class="details-row">
-                    <strong>Duration:</strong> @workout.Duration
+                    <strong>Duration:</strong> @workout.Duration minutes
                 </div>
                 <div class="details-row">
                     <strong>Exercises:</strong>
@@ -42,13 +43,14 @@ else
                         {
                         <li>
                             <span>@exercise.Name</span>
-                            <AuthorizeView Roles="Trainer">
-                                <Authorized>
-                                    <button class="btn btn-danger" @onclick="() => DeleteExercise(exercise)">Delete</button>
-                                    <button class="btn btn-warning" @onclick="() => EditExercise(exercise)">Update</button>
-                                </Authorized>
-                            </AuthorizeView>
-                            <button class="btn btn-primary" @onclick="() => ShowLogs(exercise)">Logs</button>
+                            <div class="container-buttons">
+                                <AuthorizeView Roles="Trainer">
+                                    <Authorized>
+                                        <button class="btn btn-danger" @onclick="() => DeleteExercise(exercise)">Delete</button>
+                                    </Authorized>
+                                </AuthorizeView>
+                                <button class="btn btn-primary" @onclick="() => ShowLogs(exercise)">Logs</button>
+                            </div>
                         </li>
                         }
                     </ul>
@@ -89,7 +91,7 @@ else
                         <td>@log.Weight</td>
                         <td>@log.Sets</td>
                         <td>@log.Reps</td>
-                        <td>@log.Duration</td>
+                        <td>@log.Duration min</td>
                         <td>@log.Distance</td>
                     </tr>
                     }
@@ -114,6 +116,7 @@ private Trainer loggedInTrainer;
 [Inject] private IWorkoutRepository _workoutRepository { get; set; }
 [Inject] private IGenericRepository<Trainer> _trainerRepository { get; set; }
 [Inject] private IUserRepository _userRepository { get; set; }
+[Inject] private IGenericRepository<Exercise> _exerciseRepository { get; set; }
 [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
 protected override async Task OnInitializedAsync()
@@ -142,19 +145,19 @@ private void CloseLogs()
 selectedExercise = null;
 }
 
-private async Task DeleteWorkout(Workout workout)
-{
-await _workoutRepository.Delete(workout);
-workouts.Remove(workout);
-}
-
 private async Task DeleteExercise(Exercise exercise)
 {
-// Implement delete functionality for exercises if needed
+foreach (var workout in workouts)
+{
+var exerciseToRemove = workout.Exercises.FirstOrDefault(e => e.Id == exercise.Id);
+if (exerciseToRemove != null)
+{
+workout.Exercises.Remove(exerciseToRemove);
+await _exerciseRepository.Delete(exerciseToRemove);
+await _workoutRepository.Update(workout); 
+break;
+}
+}
 }
 
-private void EditExercise(Exercise exercise)
-{
-// Implement edit functionality for exercises if needed
-}
 }

@@ -101,21 +101,33 @@
 }
 
 .btn-danger {
-    background-color: red;
+    background-color: rgba(255,0,0,0.8);
     border: none;
     color: white;
+    width: 70px;
 }
 
 .btn-primary {
-    background-color: blue;
+    background-color: rgba(0,0,255,0.72);
+    width: 70px;
     border: none;
     color: white;
 }
 
 .btn-warning {
-    background-color: orange;
+    background-color: forestgreen;
     border: none;
     color: white;
+}
+
+.container-buttons{
+    display:flex;
+    justify-content: space-between;
+    padding: 3px;
+}
+
+button{
+    margin-right: 4px;
 }
 
 .modal-backdrop {

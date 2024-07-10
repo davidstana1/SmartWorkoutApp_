@@ -5,45 +5,52 @@
 @using DataAccess.Repository.Workout
 @rendermode InteractiveServer
 
+<link href="css/styles.css" rel="stylesheet" />
+
 <PageTitle>Workouts</PageTitle>
 
 <h1>Workouts</h1>
 
-<div>
-    <h3>Add New Workout</h3>
+<div class="container">
+    <h3 class="title">Add New Workout</h3>
     <EditForm Model="newWorkout" OnValidSubmit="HandleValidSubmit">
-        <div class="form-group">
-            <label for="User">User</label>
-            <select class="form-control" @bind="selectedUserId" required>
-                <option value="" disabled>Select User</option>
-                @if (users != null)
-                {
-                @foreach (var user in users)
-                {
-                <option value="@user.Id">@user.Name @user.Surname</option>
-                }
-                }
-            </select>
-
+        <div class="content form">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">User</span>
+                    <select class="form-control" @bind="selectedUserId" required>
+                        <option value="" disabled>Select User</option>
+                        @if (users != null)
+                        {
+                            @foreach (var user in users)
+                            {
+                                <option value="@user.Id">@user.Name @user.Surname</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="input-box">
+                    <span class="details">Workout Name</span>
+                    <InputText class="form-control" id="Name" @bind-Value="newWorkout.Name" required />
+                </div>
+                <div class="input-box">
+                    <span class="details">Day</span>
+                    <InputSelect class="form-control" id="Day" @bind-Value="newWorkout.Day" required>
+                        @foreach (DayEnum day in Enum.GetValues(typeof(DayEnum)))
+                        {
+                            <option value="@day">@day</option>
+                        }
+                    </InputSelect>
+                </div>
+                <div class="input-box">
+                    <span class="details">Duration</span>
+                    <InputNumber class="form-control" id="Duration" @bind-Value="newWorkout.Duration" required />
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="btn btn-primary button-add">Add Workout</button>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="Name">Workout Name</label>
-            <InputText class="form-control" id="Name" @bind-Value="newWorkout.Name" required />
-        </div>
-        <div class="form-group">
-            <label for="Day">Day</label>
-            <InputSelect class="form-control" id="Day" @bind-Value="newWorkout.Day" required>
-                @foreach (DayEnum day in Enum.GetValues(typeof(DayEnum)))
-                {
-                    <option value="@day">@day</option>
-                }
-            </InputSelect>
-        </div>
-        <div class="form-group">
-            <label for="Duration">Duration</label>
-            <InputNumber class="form-control" id="Duration" @bind-Value="newWorkout.Duration" required />
-        </div>
-        <button type="submit" class="btn btn-primary">Add Workout</button>
     </EditForm>
 </div>
 
@@ -62,6 +69,7 @@ else
                 <th>Workout Name</th>
                 <th>Duration</th>
                 <th>Day</th>
+                <th>Actions</th> <!-- Coloană nouă pentru butoanele de acțiune -->
             </tr>
         </thead>
         <tbody>
@@ -72,6 +80,9 @@ else
                     <td>@workout.Name</td>
                     <td>@workout.Duration</td>
                     <td>@workout.Day</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="() => DeleteWorkout(workout)">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -142,5 +153,17 @@ else
         }
     }
 
-
+    private async Task DeleteWorkout(Workout workoutToDelete)
+    {
+        try
+        {
+            await _workoutRepository.Delete(workoutToDelete);
+            workouts.Remove(workoutToDelete);
+        }
+        catch (Exception ex)
+        {
+            // Log the exception or handle it appropriately
+            Console.WriteLine($"Error deleting workout: {ex.Message}");
+        }
+    }
 }

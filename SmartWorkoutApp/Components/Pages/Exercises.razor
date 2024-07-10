@@ -8,7 +8,7 @@
 @rendermode InteractiveServer
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-<link href="css/site.css" rel="stylesheet" />
+<link href="css/styles.css" rel="stylesheet" />
 <link href="_content/Blazorise/blazorise.css" rel="stylesheet">
 <link href="_content/Blazorise/blazorise.bootstrap.min.css" rel="stylesheet">
 
@@ -28,19 +28,19 @@ else
     {
         <table class="table animate__animated animate__fadeIn">
             <thead>
-            <tr><th>@workout.Name</th></tr>
+                <tr><th>@workout.Name</th></tr>
             </thead>
             <tbody>
-            @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
-            {
-                <tr class="animate__animated animate__fadeIn">
-                    <td>@exercise.Name</td>
-                    <td>
-                        <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
-                        <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
-                    </td>
-                </tr>
-            }
+                @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
+                {
+                    <tr class="animate__animated animate__fadeIn">
+                        <td>@exercise.Name</td>
+                        <td class="container-buttons">
+                            <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
+                            <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
 
@@ -71,57 +71,57 @@ else
     }
 
     @if (showEditForm && currentExercise != null)
-{
-    <div class="modalBackground">
-        <div class="modalContainer">
-            <h4>Edit Exercise</h4>
-            <form @onsubmit="UpdateExercise">
-                <div>
-                    <label>Name:</label>
-                    <input class="input" @bind="currentExercise.Name" />
-                </div>
+    {
+        <div class="modalBackground">
+            <div class="modalContainer">
+                <h4>Edit Exercise</h4>
+                <form @onsubmit="UpdateExercise">
+                    <div>
+                        <label>Name:</label>
+                        <input class="input" @bind="currentExercise.Name" />
+                    </div>
 
-                <h5>Exercise Logs:</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Weight</th>
-                            <th>Sets</th>
-                            <th>Reps</th>
-                            <th>Duration</th>
-                            <th>Distance</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var log in currentExercise.ExerciseLogs)
-                        {
+                    <h5>Exercise Logs:</h5>
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td><input class="input" @bind="log.Weight" /></td>
-                                <td><input class="input" @bind="log.Sets" /></td>
-                                <td><input class="input" @bind="log.Reps" /></td>
-                                <td><input class="input" @bind="log.Duration" /></td>
-                                <td><input class="input" @bind="log.Distance" /></td>
-                                <td><button type="button" class="deleteButton" @onclick="() => DeleteLog(log)">Delete</button></td>
+                                <th>Weight</th>
+                                <th>Sets</th>
+                                <th>Reps</th>
+                                <th>Duration</th>
+                                <th>Distance</th>
+                                <th></th>
                             </tr>
-                        }
-                        <tr>
-                            <td><input class="input" @bind="newLog.Weight" /></td>
-                            <td><input class="input" @bind="newLog.Sets" /></td>
-                            <td><input class="input" @bind="newLog.Reps" /></td>
-                            <td><input class="input" @bind="newLog.Duration" /></td>
-                            <td><input class="input" @bind="newLog.Distance" /></td>
-                            <td><button type="button" class="addButton" @onclick="AddLog">Add</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var log in currentExercise.ExerciseLogs)
+                            {
+                                <tr>
+                                    <td><input class="input" @bind="log.Weight" /></td>
+                                    <td><input class="input" @bind="log.Sets" /></td>
+                                    <td><input class="input" @bind="log.Reps" /></td>
+                                    <td><input class="input" @bind="log.Duration" /></td>
+                                    <td><input class="input" @bind="log.Distance" /></td>
+                                    <td><button type="button" class="deleteButton" @onclick="() => DeleteLog(log)">Delete</button></td>
+                                </tr>
+                            }
+                            <tr>
+                                <td><input class="input" @bind="newLog.Weight" /></td>
+                                <td><input class="input" @bind="newLog.Sets" /></td>
+                                <td><input class="input" @bind="newLog.Reps" /></td>
+                                <td><input class="input" @bind="newLog.Duration" /></td>
+                                <td><input class="input" @bind="newLog.Distance" /></td>
+                                <td><button type="button" class="addButton" @onclick="AddLog">Add</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <button type="submit" class="submitButton">Save Changes</button>
-                <button type="button" class="cancelButton" @onclick="CancelEdit">Cancel</button>
-            </form>
+                    <button type="submit" class="submitButton">Save Changes</button>
+                    <button type="button" class="cancelButton" @onclick="CancelEdit">Cancel</button>
+                </form>
+            </div>
         </div>
-    </div>
-}
+    }
     }
 }
 

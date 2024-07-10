@@ -9,9 +9,14 @@ public class User : Entity
     public string? Phone { get; set; }
     public string? Email { get; set; }
     public string? Password { get; set; }
+    public string? CNP { get; set; }
+    public string? Judet { get; set; }
+    public string? Sex { get; set; }
+    public string? Cetatenie { get; set; }
     public RoleEnum Role { get; set; } = RoleEnum.Client;
     public double? Weight { get; set; }
     public int? Age { get; set; }
+    public string Salt { get; set; }
     public Trainer? Trainer { get; set; }
     public ICollection<Workout> Workouts { get; set; } = new List<Workout>();
 

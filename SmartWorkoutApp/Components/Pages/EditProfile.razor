@@ -1,0 +1,217 @@
+﻿@page "/EditProfile"
+@using System.Security.Claims
+@using DataAccess.Entities
+@using DataAccess.Repository
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using SmartWorkoutApp.Services.ScannerService
+@inject IGenericRepository<User> _userRepository
+@inject NavigationManager NavigationManager
+@inject ILogger<EditProfile> Logger
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IOcrService _ocrService
+@rendermode InteractiveServer
+
+<div class="container">
+    <div class="title">Edit Profile</div>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <div class="content">
+        <EditForm Model="@profileModel" OnValidSubmit="UpdateProfile">
+            <DataAnnotationsValidator />
+            <div class="trainer-details">
+                <div class="input-box">
+                    <span class="details">Name</span>
+                    <InputText @bind-Value="profileModel.Name" placeholder="Enter your name" class="input" required />
+                    <ValidationMessage For="@(() => profileModel.Name)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Surname</span>
+                    <InputText @bind-Value="profileModel.Surname" placeholder="Enter your surname" class="input" required />
+                    <ValidationMessage For="@(() => profileModel.Surname)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <InputText @bind-Value="profileModel.Email" placeholder="Enter your email" class="input" disabled />
+                    <ValidationMessage For="@(() => profileModel.Email)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <InputText @bind-Value="profileModel.Password" type="password" placeholder="Enter your new password" class="input" />
+                    <ValidationMessage For="@(() => profileModel.Password)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Phone</span>
+                    <InputText @bind-Value="profileModel.Phone" placeholder="Enter your phone number" class="input" required />
+                    <ValidationMessage For="@(() => profileModel.Phone)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Weight</span>
+                    <InputNumber @bind-Value="profileModel.Weight" placeholder="Enter your weight" class="input" required />
+                    <ValidationMessage For="@(() => profileModel.Weight)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Age</span>
+                    <InputNumber @bind-Value="profileModel.Age" placeholder="Enter your age" class="input" required />
+                    <ValidationMessage For="@(() => profileModel.Age)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Sex</span>
+                    <InputText @bind-Value="profileModel.Sex" placeholder="Enter your sex" class="input" />
+                    <ValidationMessage For="@(() => profileModel.Sex)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">CNP</span>
+                    <InputText @bind-Value="profileModel.CNP" placeholder="Enter your CNP" class="input" />
+                    <ValidationMessage For="@(() => profileModel.CNP)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Judet</span>
+                    <InputText @bind-Value="profileModel.Judet" placeholder="Enter your judet" class="input" />
+                    <ValidationMessage For="@(() => profileModel.Judet)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Cetatenie</span>
+                    <InputText @bind-Value="profileModel.Cetatenie" placeholder="Enter your cetatenie" class="input" />
+                    <ValidationMessage For="@(() => profileModel.Cetatenie)" />
+                </div>
+                <div class="input-box">
+                    <span class="details">ID Card Image</span>
+                    <InputFile accept="image/*" OnChange="HandleFileSelect" />
+                    <ValidationMessage For="@(() => selectedImage)" />
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Update Profile" class="btn btn-primary">
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private ProfileModel profileModel = new();
+    private string selectedImage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUserProfileData();
+    }
+    
+    private async Task LoadUserProfileData()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var email = user.FindFirst(ClaimTypes.Email)?.Value;
+            if (!string.IsNullOrEmpty(email))
+            {
+                var existingUser = await _userRepository.GetByEmail(email);
+                if (existingUser != null)
+                {
+                    profileModel.Name = existingUser.Name;
+                    profileModel.Surname = existingUser.Surname;
+                    profileModel.Email = existingUser.Email;
+                    profileModel.Phone = existingUser.Phone;
+                    profileModel.Weight = existingUser.Weight ?? 0;
+                    profileModel.Age = existingUser.Age ?? 0;
+                    profileModel.Sex = existingUser.Sex;
+                    profileModel.CNP = existingUser.CNP;
+                    profileModel.Judet = existingUser.Judet;
+                    profileModel.Cetatenie = existingUser.Cetatenie;
+                }
+            }
+        }
+    }
+    
+    private async Task UpdateProfile()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var email = user.FindFirst(ClaimTypes.Email)?.Value;
+            if (!string.IsNullOrEmpty(email))
+            {
+                var existingUser = await _userRepository.GetByEmail(email);
+                if (existingUser != null)
+                {
+                    existingUser.Name = profileModel.Name;
+                    existingUser.Surname = profileModel.Surname;
+                    existingUser.Email = profileModel.Email;
+                    existingUser.Phone = profileModel.Phone;
+                    existingUser.Weight = profileModel.Weight;
+                    existingUser.Age = profileModel.Age;
+                    existingUser.Sex = profileModel.Sex;
+                    existingUser.CNP = profileModel.CNP;
+                    existingUser.Judet = profileModel.Judet;
+                    existingUser.Cetatenie = profileModel.Cetatenie;
+
+                    await _userRepository.Update(existingUser);
+                }
+            }
+        }
+
+        NavigationManager.NavigateTo("/EditProfile", forceLoad: true);
+    }
+
+    private async Task HandleFileSelect(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        if (file != null)
+        {
+            var buffer = new byte[file.Size];
+            await file.OpenReadStream().ReadAsync(buffer);
+
+            selectedImage = Convert.ToBase64String(buffer); // Salvați imaginea în baza de date
+
+            var ocrText = _ocrService.ExtractTextFromImage(buffer); // Apelați metoda corectă din serviciul OCR
+
+            Console.WriteLine("Text extrait din imagine:");
+            Console.WriteLine(ocrText); // Afisăm textul extras în consolă
+
+            var mrzData = _ocrService.ExtractMrzData(ocrText);
+
+            Console.WriteLine("Date MRZ extrase:");
+            Console.WriteLine($"Name: {mrzData.Name}");
+            Console.WriteLine($"Surname: {mrzData.Surname}");
+            Console.WriteLine($"Sex: {mrzData.Sex}");
+            Console.WriteLine($"CNP: {mrzData.CNP}");
+            Console.WriteLine($"Judet: {mrzData.Judet}");
+            Console.WriteLine($"Cetatenie: {mrzData.Cetatenie}");
+
+            // Actualizăm valorile din formular cu datele extrase
+            profileModel.Name = mrzData.Name;
+            profileModel.Surname = mrzData.Surname;
+            profileModel.Sex = mrzData.Sex; // Extrageți sexul din mrzData (de la buletin)
+            profileModel.CNP = mrzData.CNP;
+            profileModel.Judet = mrzData.Judet;
+            profileModel.Cetatenie = mrzData.Cetatenie;
+
+            // Reîmprospătăm interfața utilizatorului pentru a reflecta noile valori
+            await InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
+        }
+    }
+
+    // Clasa modelului pentru profilul utilizatorului
+    public class ProfileModel
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Phone { get; set; }
+        public double Weight { get; set; }
+        public int Age { get; set; }
+        public string Sex { get; set; }
+        public string CNP { get; set; }
+        public string Judet { get; set; }
+        public string Cetatenie { get; set; }
+    }
+}

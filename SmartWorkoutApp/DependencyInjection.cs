@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using SmartWorkoutApp.Services.EmailService;
+using SmartWorkoutApp.Services.ScannerService;
 
 namespace SmartWorkoutApp;
 
@@ -23,6 +24,7 @@ public static class DependencyInjection
         services.AddScoped<IWorkoutRepository, WorkoutRepository>();
         services.AddScoped<IUserRepository,UserRepository>();
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IOcrService, OcrService>();
         return services;
     }
 }

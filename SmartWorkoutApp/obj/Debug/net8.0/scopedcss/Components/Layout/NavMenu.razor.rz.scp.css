@@ -39,11 +39,27 @@
 }
 
 .bi-plus-square-fill-nav-menu[b-ojkr9v3mcf] {
-   background-image: url("icons8-gym-64.png");
+   background-image: url("barbell.png");
+}
+
+.exercises[b-ojkr9v3mcf]{
+    background-image: url("program.png");
+}
+
+.profile[b-ojkr9v3mcf]{
+    background-image: url("trainer.png");
+}
+
+.invite[b-ojkr9v3mcf]{
+    background-image: url("add-user.png");
+}
+
+.session[b-ojkr9v3mcf]{
+    background-image: url("calendar.png");
 }
 
 .bi-list-nested-nav-menu[b-ojkr9v3mcf] {
-    background-image: url("user.png");
+    background-image: url("gym.png");
 }
 
 .nav-item[b-ojkr9v3mcf] {
