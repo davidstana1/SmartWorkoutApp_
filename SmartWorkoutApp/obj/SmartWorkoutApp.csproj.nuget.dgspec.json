@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[1.5.3, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
               "version": "[2.2.5, )"
@@ -150,6 +154,10 @@
             "Blazorise": {
               "target": "Package",
               "version": "[1.5.3, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.7.0, )"
             },
             "Microsoft.AspNetCore.Razor": {
               "target": "Package",

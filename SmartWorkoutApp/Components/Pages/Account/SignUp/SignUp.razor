@@ -8,6 +8,7 @@
 @inject IGenericRepository<Trainer> _trainerRepository 
 @inject NavigationManager NavigationManager
 @inject ILogger<SignUp> Logger
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 
 <div class="container">
@@ -94,6 +95,7 @@ private List<Trainer> trainers = new List<Trainer>();
 
 protected override async Task OnInitializedAsync()
 {
+    await LogoutUser();
     trainers = await _trainerRepository.GetAll();
 }
 
@@ -148,5 +150,16 @@ private async Task RegisterUser()
     }
 
     NavigationManager.NavigateTo("/Login", forceLoad: true);
+}
+private async Task LogoutUser()
+{
+    var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    var user = authState.User;
+
+    if (user.Identity.IsAuthenticated)
+    {
+        await AuthenticationStateProvider.GetAuthenticationStateAsync(); // Clear the authentication state
+        NavigationManager.NavigateTo("/Logout", true); // Redirect to a logout page or endpoint
+    }
 }
 }

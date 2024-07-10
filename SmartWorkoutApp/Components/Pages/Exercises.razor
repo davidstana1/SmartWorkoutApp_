@@ -22,25 +22,25 @@
 }
 else
 {
+    @foreach (var userGroup in workouts.GroupBy(w => w.User)){
+        <h2>@userGroup.Key.Name @userGroup.Key.Surname's Workouts</h2>
     @foreach (var workout in workouts)
     {
         <table class="table animate__animated animate__fadeIn">
             <thead>
-                <tr>
-                    <th>@workout.User.Surname's workout</th>
-                </tr>
+            <tr><th>@workout.Name</th></tr>
             </thead>
             <tbody>
-                @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
-                {
-                    <tr class="animate__animated animate__fadeIn">
-                        <td>@exercise.Name</td>
-                        <td>
-                            <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
-                            <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
-                        </td>
-                    </tr>
-                }
+            @foreach (var exercise in exercises.Where(e => e.Workout.Id == workout.Id))
+            {
+                <tr class="animate__animated animate__fadeIn">
+                    <td>@exercise.Name</td>
+                    <td>
+                        <button class="deleteButton" @onclick="() => DeleteExercise(exercise)">Delete</button>
+                        <button class="updateButton" @onclick="() => EditExercise(exercise)">Update</button>
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
 
@@ -49,10 +49,10 @@ else
         @if (showAddForm && currentWorkoutId == workout.Id)
         {
             <form class="addForm animate__animated animate__fadeIn" method="post" @onsubmit="SubmitExercise">
-                <AntiforgeryToken />
+                <AntiforgeryToken/>
                 <div>
                     <label>Name:</label>
-                    <input class="input" @bind="newExercise.Name" />
+                    <input class="input" @bind="newExercise.Name"/>
                 </div>
 
                 <div>
@@ -68,8 +68,9 @@ else
                 <button type="submit" class="submitButton">Submit</button>
             </form>
         }
+    }
 
-       @if (showEditForm && currentExercise != null)
+    @if (showEditForm && currentExercise != null)
 {
     <div class="modalBackground">
         <div class="modalContainer">

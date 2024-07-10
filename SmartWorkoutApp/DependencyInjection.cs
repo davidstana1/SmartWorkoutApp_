@@ -6,6 +6,7 @@ using DataAccess.Repository.Workout;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using SmartWorkoutApp.Services.EmailService;
 
 namespace SmartWorkoutApp;
 
@@ -21,6 +22,7 @@ public static class DependencyInjection
         services.AddScoped<IGenericRepository<Exercise>, GenericRepository<Exercise>>();
         services.AddScoped<IWorkoutRepository, WorkoutRepository>();
         services.AddScoped<IUserRepository,UserRepository>();
+        services.AddScoped<IEmailService, EmailService>();
         return services;
     }
 }

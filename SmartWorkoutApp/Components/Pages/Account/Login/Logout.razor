@@ -10,7 +10,11 @@
                     <img src="/gantera.png" style="max-height: 5rem"/>
                 </div>
                 <div class="text-center mt-2">
-                    <span class="text-danger fw-bolder">You've succesfully logged out of the app.</span>
+                    <span class="text-danger fw-bolder">You've successfully logged out of the app.</span>
+                </div>
+                <div class="text-center mt-2">
+                    <a href="/login" class="btn btn-primary m-2">Login</a>
+                    <a href="/signup" class="btn btn-secondary m-2">Sign up</a>
                 </div>
             </div>
         </div>
@@ -18,16 +22,16 @@
 </div>
 
 @code {
-    [CascadingParameter] 
-    public HttpContext HttpContext { get; set; }
+[CascadingParameter]
+public HttpContext HttpContext { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        if (HttpContext.User.Identity.IsAuthenticated)
-        {
-            await HttpContext.SignOutAsync();
-            navigationManager.NavigateTo("/logout",true);
-        }
-    }
+protected override async Task OnInitializedAsync()
+{
+await base.OnInitializedAsync();
+if (HttpContext.User.Identity.IsAuthenticated)
+{
+await HttpContext.SignOutAsync();
+navigationManager.NavigateTo("/logout", true);
+}
+}
 }

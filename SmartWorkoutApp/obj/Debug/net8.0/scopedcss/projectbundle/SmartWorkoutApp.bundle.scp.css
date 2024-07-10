@@ -727,6 +727,63 @@ h1[b-piqrqqt469]{
     margin: 10px 0;
 }
 
+/* _content/SmartWorkoutApp/Components/Pages/Invite.razor.rz.scp.css */
+/* style.css */
+
+.invite-container[b-f099rvogv8] {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+.invite-form[b-f099rvogv8] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.invite-form label[b-f099rvogv8] {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.invite-form input[type=email][b-f099rvogv8] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.invite-form button[b-f099rvogv8] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.invite-form button:hover[b-f099rvogv8] {
+    background-color: #0056b3;
+}
+
+.invite-message[b-f099rvogv8] {
+    margin-top: 16px;
+    font-weight: bold;
+}
+
+.error-message[b-f099rvogv8] {
+    color: red;
+}
+
+.success-message[b-f099rvogv8] {
+    color: green;
+}
 /* _content/SmartWorkoutApp/Components/Pages/MyTrainingSessions.razor.rz.scp.css */
 .workouts-container[b-hutc9m74w7] {
     display: flex;
@@ -882,6 +939,172 @@ h1[b-piqrqqt469]{
     }
 }
 /* _content/SmartWorkoutApp/Components/Pages/TrainingSessions.razor.rz.scp.css */
+.workouts-container[b-tzcj3biwfx] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.user-workouts[b-tzcj3biwfx] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.workout[b-tzcj3biwfx] {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+    width: 300px;
+    margin-top: 15px;
+}
+
+.workout h3[b-tzcj3biwfx] {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.workout-details[b-tzcj3biwfx] {
+    margin-bottom: 10px;
+}
+
+.details-row[b-tzcj3biwfx] {
+    margin-bottom: 5px;
+}
+
+.exercise-list[b-tzcj3biwfx] {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.exercise-list li[b-tzcj3biwfx] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Modal */
+.modal-container[b-tzcj3biwfx] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content[b-tzcj3biwfx] {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal.show[b-tzcj3biwfx] {
+    display: block;
+    opacity: 1;
+}
+
+.modal-header[b-tzcj3biwfx] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.modal-header h5[b-tzcj3biwfx] {
+    margin: 0;
+}
+
+.btn[b-tzcj3biwfx] {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+}
+
+.close-btn[b-tzcj3biwfx] {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    width: 70px;
+    height: 40px;
+    cursor: pointer;
+    padding: 0;
+    background-color: red;
+}
+
+.btn-danger[b-tzcj3biwfx] {
+    background-color: red;
+    border: none;
+    color: white;
+}
+
+.btn-primary[b-tzcj3biwfx] {
+    background-color: blue;
+    border: none;
+    color: white;
+}
+
+.btn-warning[b-tzcj3biwfx] {
+    background-color: orange;
+    border: none;
+    color: white;
+}
+
+.modal-backdrop[b-tzcj3biwfx] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    animation: fadeInBackdrop-b-tzcj3biwfx 0.3s ease-out forwards;
+    opacity: 0;
+    display: none;
+}
+
+.modal-backdrop.show[b-tzcj3biwfx] {
+    display: block;
+    opacity: 1;
+}
+
+.modal-body[b-tzcj3biwfx] {
+    margin-bottom: 20px;
+}
+
+.modal-footer[b-tzcj3biwfx] {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@keyframes fadeIn-b-tzcj3biwfx {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes fadeInBackdrop-b-tzcj3biwfx {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 /* _content/SmartWorkoutApp/Components/Pages/UserPage.razor.rz.scp.css */
 .page-title[b-vgurfcm2i6] {
     font-family: 'Montserrat', sans-serif;
@@ -1049,3 +1272,4 @@ h1[b-piqrqqt469]{
         opacity: 1;
     }
 }
+/* _content/SmartWorkoutApp/Components/Pages/Workouts.razor.rz.scp.css */

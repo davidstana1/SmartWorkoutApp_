@@ -1,1 +1,166 @@
-﻿
+﻿.workouts-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.user-workouts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.workout {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+    width: 300px;
+    margin-top: 15px;
+}
+
+.workout h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.workout-details {
+    margin-bottom: 10px;
+}
+
+.details-row {
+    margin-bottom: 5px;
+}
+
+.exercise-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.exercise-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Modal */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal.show {
+    display: block;
+    opacity: 1;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.modal-header h5 {
+    margin: 0;
+}
+
+.btn {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    width: 70px;
+    height: 40px;
+    cursor: pointer;
+    padding: 0;
+    background-color: red;
+}
+
+.btn-danger {
+    background-color: red;
+    border: none;
+    color: white;
+}
+
+.btn-primary {
+    background-color: blue;
+    border: none;
+    color: white;
+}
+
+.btn-warning {
+    background-color: orange;
+    border: none;
+    color: white;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    animation: fadeInBackdrop 0.3s ease-out forwards;
+    opacity: 0;
+    display: none;
+}
+
+.modal-backdrop.show {
+    display: block;
+    opacity: 1;
+}
+
+.modal-body {
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes fadeInBackdrop {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

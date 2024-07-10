@@ -161,3 +161,8 @@ C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.0\Microsoft.JSInterop.dll
+C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\scopedcss\Components\Pages\Workouts.razor.rz.scp.css
+C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.0\MailKit.dll
+C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\bin\Debug\net8.0\MimeKit.dll
+C:\Users\david\OneDrive\Desktop\SmartWorkoutApp_\SmartWorkoutApp\obj\Debug\net8.0\scopedcss\Components\Pages\Invite.razor.rz.scp.css
